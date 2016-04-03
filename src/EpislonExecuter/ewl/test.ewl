@@ -1,0 +1,17 @@
+wizard testChange {
+	guard : self.isTypeOf(Model!Graph)
+	
+	title : 'Executing change on: ' + self.name
+	
+	do {
+		var node1 = new Model!Node;
+		node1.name = "Test2";
+		
+		var node2 = new Model!Node;
+		node2.name = "Test3";
+		
+		var edge = new Model!Edge;
+		edge.source = node1;
+		edge.target = node2;
+	}
+}

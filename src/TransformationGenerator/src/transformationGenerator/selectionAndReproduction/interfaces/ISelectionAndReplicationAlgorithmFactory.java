@@ -1,0 +1,11 @@
+package transformationGenerator.selectionAndReproduction.interfaces;
+
+import transformationGenerator.selectionAndReproduction.NaiveMaximumSelectionPressureAlgorithm;
+import transformationGenerator.selectionAndReproduction.RouletteWheelBasedAlgorithm;
+import transformationGenerator.selectionAndReproduction.TournamentBasedAlgorithm;
+
+public interface ISelectionAndReplicationAlgorithmFactory {
+	NaiveMaximumSelectionPressureAlgorithm createNaiveMaximumSelectionPressureAlgorithm(int minimumPopulationSize, double badFitnessIsBelow);
+	TournamentBasedAlgorithm createTournamentBasedAlgorithm(int tournamentSize);
+	RouletteWheelBasedAlgorithm createRouletteWheelBasedAlgorithm();
+}

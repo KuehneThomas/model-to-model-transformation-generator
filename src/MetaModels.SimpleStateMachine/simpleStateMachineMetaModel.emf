@@ -1,0 +1,26 @@
+@namespace(uri="simpleStateMachineMetaModel", prefix="")
+package simpleStateMachineMetaModel;
+
+class SimpleStateMachine {
+	attr String Name;
+	val State[*]#SimpleStateMachine States;
+	val Transition[*]#SimpleStateMachine Transitions;
+	ref State#InitialStateOfSimpleStateMachines InitialState;
+}
+
+class Transition {
+	attr String Name;
+	ref SimpleStateMachine[1]#Transitions SimpleStateMachine;
+	
+	ref State[1]#Outgoing Source;
+	ref State[1]#Incoming Target;
+}
+
+class State {
+	attr String Name;
+	ref SimpleStateMachine[1]#States SimpleStateMachine;
+	ref SimpleStateMachine[*]#InitialState InitialStateOfSimpleStateMachines;
+	
+	ref Transition[*]#Source Outgoing;
+	ref Transition[*]#Target Incoming;
+}

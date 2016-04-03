@@ -1,0 +1,16 @@
+<configuration>
+	<logger name="common" level="DEBUG"/>
+    <logger name="epsilonExecuter" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="transformationGenerator" level="WARN"/>
+    <logger name="transformationGenerator.fitness" level="DEBUG"/>
+    <logger name="transformationGenerator.tests" level="ALL"/>
+
+    <root level="INFO">
+        <appender class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{ISO8601} | %-5level | %thread | %logger{1} | %m%n</pattern>
+            </encoder>
+        </appender>     
+    </root>
+</configuration>

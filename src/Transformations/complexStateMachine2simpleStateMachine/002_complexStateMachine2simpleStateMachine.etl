@@ -1,0 +1,83 @@
+rule ComplexStateMachine2SimpleStateMachine
+	transform complexStateMachine : Source!ComplexStateMachine
+	to simpleStateMachine : Target!SimpleStateMachine {
+	
+	simpleStateMachine.Name = complexStateMachine.Name;
+	
+	simpleStateMachine.InitialState = complexStateMachine.InitialState.equivalent();
+}
+
+rule State2State
+	transform sourceState : Source!State
+	to targetState : Target!State {
+	
+	targetState.Name = sourceState.Name;
+	
+	targetState.SimpleStateMachine = sourceState.ComplexStateMachine.equivalent();
+}
+
+rule Transition2Transition
+	transform sourceTransition : Source!Transition
+	to targetTransition : Target!Transition {
+	guard : 	not sourceTransition.Target.isTypeOf(Source!CompositeState) // new: "isTypeOf" for reference properties + "and" for boolean expressions + "not" negation
+		    and not sourceTransition.Source.isTypeOf(Source!CompositeState) 
+	
+	targetTransition.Name = sourceTransition.Name;
+	
+	targetTransition.Source = sourceTransition.Source.equivalent();
+	
+	targetTransition.Target = sourceTransition.Target.equivalent();
+	
+	targetTransition.SimpleStateMachine = sourceTransition.ComplexStateMachine.equivalent();
+}
+
+rule TransitionToComplexState2Transition
+	transform sourceTransition : Source!Transition
+	to targetTransition : Target!Transition { 
+	guard : sourceTransition.Target.isTypeOf(Source!CompositeState) // (new: guard that includes elements, that have been excluded before)
+			and not sourceTransition.Source.isTypeOf(Source!CompositeState)
+	
+	targetTransition.Name = sourceTransition.Source.Name + " -> " + sourceTransition.Target.InitialState.Name; // new: naming convention in order to be able to create new elements in 1:N mappings
+	targetTransition.Source = sourceTransition.Source.equivalent();
+	targetTransition.Target = sourceTransition.Target.InitialState.equivalent(); // new: property of a property is used to go "in" the complex state
+
+	targetTransition.SimpleStateMachine = sourceTransition.ComplexStateMachine.equivalent();
+}
+
+rule TransitionFromComplexState2ManyTransitions
+	transform sourceTransition : Source!Transition
+	to targetTransitions : Sequence(Target!Transition) { // new: "to many"" transformations => to is a sequence
+	guard : sourceTransition.Source.isTypeOf(Source!CompositeState)
+			and not sourceTransition.Target.isTypeOf(Source!CompositeState)
+
+	for(sourceState in sourceTransition.Source.States) { // new: "to many" transformations => require a loop and the detection of a enumerable property
+		var targetTransition = new Target!Transition; // new: "to many" transformations => require explicitly created elements
+		targetTransitions.add(targetTransition); // new: "to many" transformations => require explicitly added elements to the target	
+		
+		// "pair" pattern !?
+		targetTransition.Name = sourceState.Name + " -> " + sourceTransition.Target.Name;
+		targetTransition.Source = sourceState.equivalent();
+		targetTransition.Target = sourceTransition.Target.equivalent();
+			
+		// "normal" property mapping
+		targetTransition.SimpleStateMachine = sourceTransition.ComplexStateMachine.equivalent();
+	}
+}
+
+// note: Transition between two Composite States would require Many to Many rule
+
+// new: extensions .. map based type OR subtypes!?
+// new: some elements cannot be mapped -> CompositeState
+
+// =========================
+// required mutation operations:
+// - "Add OneToManyOfSameKind rule including loop and enumerable source property selection"
+// - ("Change enumerable source property and dependend properties")
+// - "Add rule duplication and restrict existing rule(s) and new rule with the same constraint" (also for OneToManyOfSameKind rule)
+// - ("Change constraing on all related rules consistently"
+// - ("Remove rule duplication and related constraints")
+// - "Change name mapping according to pair convention"
+// - ("Change name mapping according to simple convention")
+// - "Change property mapping and use source sub-property
+// - "Add property mapping in OneToManyOfSameKind rule" --> depends on loop variable --> normal "property mapping rule" not applicable here!
+"

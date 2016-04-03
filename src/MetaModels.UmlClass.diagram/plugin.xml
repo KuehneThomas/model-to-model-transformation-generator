@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+-->
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="umlclassmetamodel_diagram"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="umlclassmetamodel_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/UmlClassMetaModelDiagramFile.gif"
+         extensions="umlclassmetamodel_diagram"
+         default="true"
+         class="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditor"
+         matchingStrategy="umlClassMetaModel.diagram.part.UmlClassMetaModelMatchingStrategy"
+         contributorClass="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="umlClassMetaModel.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/UmlClassMetaModelDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="umlClassMetaModel.diagram.part.UmlClassMetaModelCreationWizard"
+  	     id="umlClassMetaModel.diagram.part.UmlClassMetaModelCreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="MetaModels.UmlClass.diagram.InitDiagram"
+            nameFilter="*.umlclassmetamodel"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="umlClassMetaModel.diagram.part.UmlClassMetaModelInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="MetaModels.UmlClass.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="UmlClassMetaModelPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
+         id="UmlClassMetaModelPresentationPrint">
+         <Priority name="Lowest"/>
+         <ViewId id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="UmlClassMetaModelPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="UmlClassMetaModelRender">
+         <Priority name="Lowest"/>
+         <ViewId id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelMarkerNavigationProvider">
+         <MarkerType name="MetaModels.UmlClass.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="diagnostic" name="UmlClassMetaModel Plugin problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelValidationDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="umlClassMetaModel.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="MetaModels.UmlClass.diagram.general"
+            name="%prefpage.MetaModels.UmlClass.diagram.general"
+            class="umlClassMetaModel.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="MetaModels.UmlClass.diagram.appearance"
+            name="%prefpage.MetaModels.UmlClass.diagram.appearance"
+            category="MetaModels.UmlClass.diagram.general"
+            class="umlClassMetaModel.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="MetaModels.UmlClass.diagram.connections"
+            name="%prefpage.MetaModels.UmlClass.diagram.connections"
+            category="MetaModels.UmlClass.diagram.general"
+            class="umlClassMetaModel.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="MetaModels.UmlClass.diagram.printing"
+            name="%prefpage.MetaModels.UmlClass.diagram.printing"
+            category="MetaModels.UmlClass.diagram.general"
+            class="umlClassMetaModel.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="MetaModels.UmlClass.diagram.rulersAndGrid"
+            name="%prefpage.MetaModels.UmlClass.diagram.rulersAndGrid"
+            category="MetaModels.UmlClass.diagram.general"
+            class="umlClassMetaModel.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="MetaModels.UmlClass.diagram"
+            labelProvider="umlClassMetaModel.diagram.sheet.UmlClassMetaModelSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="MetaModels.UmlClass.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="MetaModels.UmlClass.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="umlClassMetaModel.diagram.sheet.UmlClassMetaModelPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelViewProvider">
+         <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="umlClassMetaModel"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="UmlClassMetaModel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="UmlClassMetaModel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,2002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001,4002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5001,5002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value=""/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="umlClassMetaModel.diagram.edit.parts.UmlPackageEditPart" id="UmlPackage_1000"/>
+         <object class="umlClassMetaModel.diagram.edit.parts.UmlClassEditPart" id="UmlClass_2001"/>
+         <object class="umlClassMetaModel.diagram.edit.parts.UmlAssociationEditPart" id="UmlAssociation_2002"/>
+         <context elements="UmlPackage_1000,UmlClass_2001,UmlAssociation_2002,"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="umlClassMetaModel.diagram.providers.UmlClassMetaModelShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2001,2002"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="umlClassMetaModel">
+         <metamodelType
+               id="MetaModels.UmlClass.diagram.UmlPackage_1000"
+               name="%metatype.name.UmlPackage_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="UmlPackage"
+               edithelper="umlClassMetaModel.diagram.edit.helpers.UmlPackageEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="umlClassMetaModel">
+         <metamodelType
+               id="MetaModels.UmlClass.diagram.UmlClass_2001"
+               name="%metatype.name.UmlClass_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="UmlClass"
+               edithelper="umlClassMetaModel.diagram.edit.helpers.UmlClassEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="umlClassMetaModel">
+         <metamodelType
+               id="MetaModels.UmlClass.diagram.UmlAssociation_2002"
+               name="%metatype.name.UmlAssociation_2002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="UmlAssociation"
+               edithelper="umlClassMetaModel.diagram.edit.helpers.UmlAssociationEditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="umlClassMetaModel">
+         <specializationType
+               id="MetaModels.UmlClass.diagram.UmlClassOutgoingRelations_4001"
+               name="%metatype.name.UmlClassOutgoingRelations_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="umlClassMetaModel">
+         <specializationType
+               id="MetaModels.UmlClass.diagram.UmlClassIncomingRelations_4002"
+               name="%metatype.name.UmlClassIncomingRelations_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4002"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="MetaModels.UmlClass.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="MetaModels.UmlClass.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="MetaModels.UmlClass.diagram.TypeContext">
+         <elementType ref="MetaModels.UmlClass.diagram.UmlPackage_1000"/>
+         <elementType ref="MetaModels.UmlClass.diagram.UmlClass_2001"/>
+         <elementType ref="MetaModels.UmlClass.diagram.UmlAssociation_2002"/>
+         <elementType ref="MetaModels.UmlClass.diagram.UmlClassOutgoingRelations_4001"/>
+         <elementType ref="MetaModels.UmlClass.diagram.UmlClassIncomingRelations_4002"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="MetaModels.UmlClass.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="MetaModels.UmlClass.diagram"
+           properties="isURIEditorInput"
+           class="umlClassMetaModel.diagram.part.UmlClassMetaModelUriEditorInputTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="MetaModels.UmlClass.diagram.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="MetaModels.UmlClass.diagram"
+           properties="isShortcut"
+           class="umlClassMetaModel.diagram.part.UmlClassMetaModelShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="MetaModels.UmlClass.diagram.resourceContent"/>
+			<contentExtension pattern="MetaModels.UmlClass.diagram.domainResourceContent"/>
+            <contentExtension pattern="MetaModels.UmlClass.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="MetaModels.UmlClass.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="MetaModels.UmlClass.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="umlClassMetaModel.diagram.navigator.UmlClassMetaModelNavigatorContentProvider" 
+            labelProvider="umlClassMetaModel.diagram.navigator.UmlClassMetaModelNavigatorLabelProvider"
+            icon="icons/obj16/UmlClassMetaModelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="umlclassmetamodel_diagram"/>
+               </and>
+               <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.UmlClass.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.UmlClass.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="MetaModels.UmlClass.diagram.navigatorSorter" 
+               class="umlClassMetaModel.diagram.navigator.UmlClassMetaModelNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="umlclassmetamodel_diagram"/>
+                  </and>
+                  <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="MetaModels.UmlClass.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="umlClassMetaModel.diagram.navigator.UmlClassMetaModelDomainNavigatorContentProvider" 
+            labelProvider="umlClassMetaModel.diagram.navigator.UmlClassMetaModelDomainNavigatorLabelProvider"
+            icon="icons/obj16/UmlClassMetaModelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="umlclassmetamodel"/>
+               </and>
+               <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="MetaModels.UmlClass.diagram.navigatorActionProvider"
+            class="umlClassMetaModel.diagram.navigator.UmlClassMetaModelNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.UmlClass.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="MetaModels.UmlClass.diagram.navigatorLinkHelper"
+            class="umlClassMetaModel.diagram.navigator.UmlClassMetaModelNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="MetaModels.UmlClass.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="umlClassMetaModel.diagram.navigator.UmlClassMetaModelAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="umlClassMetaModel.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="umlClassMetaModel.diagram.updateDiagram"
+         contextId="umlClassMetaModel.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="MetaModels.UmlClass.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="umlClassMetaModel.diagram.edit.parts.UmlPackageEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="MetaModels.UmlClass.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="umlClassMetaModel.diagram.part.UmlClassMetaModelDiagramEditorID"
+         defaultHandler="umlClassMetaModel.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+</plugin>

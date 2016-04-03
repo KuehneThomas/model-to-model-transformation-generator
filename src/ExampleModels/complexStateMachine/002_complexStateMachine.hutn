@@ -1,0 +1,20 @@
+@Spec {
+	metamodel "complexStateMachineMetaModel" {
+		nsUri: "complexStateMachineMetaModel"
+	}
+}
+
+complexStateMachineMetaModel {
+	ComplexStateMachine "DHC State Machine" {
+		Name: "DHC"
+		States:	  State "DHC Off" { Name: "DHC Off" },
+				  State "DHC Ready" { Name: "DHC Ready" },
+				  State "DHC Operating" { Name: "DHC Operating" },
+				  CompositeState "DHC On" { Name: "DHC On" States: State "DHC Ready", State "DHC Operating" InitialState: State "DHC Ready" }
+		InitialState: State "DHC Off"
+		Transitions: Transition "DHC Off -> DHC On" { Name: "DHC Off -> DHC On" Source: State "DHC Off" Target : CompositeState "DHC On" },
+					 Transition "DHC Ready -> DHC Operating" { Name: "DHC Ready -> DHC Operating" Source: State "DHC Ready" Target : State "DHC Operating" },
+					 Transition "DHC Operating -> DHC Ready" { Name: "DHC Operating -> DHC Ready" Source: State "DHC Operating" Target : State "DHC Ready" },
+					 Transition "DHC On -> DHC Off" { Name: "DHC On -> DHC Off" Source: CompositeState "DHC On" Target : State "DHC Off" }
+	}	
+}

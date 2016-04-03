@@ -1,0 +1,7 @@
+# Tracing options for the MetaModels.Relational.diagram plug-in
+
+# Common issues
+MetaModels.Relational.diagram/debug=false
+
+# Visual IDs
+MetaModels.Relational.diagram/debug/visualID=false

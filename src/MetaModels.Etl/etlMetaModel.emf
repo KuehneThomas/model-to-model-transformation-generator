@@ -1,0 +1,643 @@
+@namespace(uri="etlMetaModel", prefix="")
+package etlMetaModel;
+
+// TODO EolType can refer to used models....
+
+// MOF
+
+class MofNamedElement {
+	attr String name;	
+}
+
+class MofType extends MofNamedElement { 
+	val MofTypedElement[*]#type typedElements; // not used yet
+}
+
+class MofClass extends MofType {
+	val MofProperty[*]#clazz ownedProperties;
+	
+	ref MofClass[*]#clazz superclasses; // required in complex scenario
+	ref MofClass[*]#superclasses clazz; // required in complex scenario
+}
+
+class MofTypedElement extends MofNamedElement { 
+	ref MofType[?]#typedElements type; // not used yet
+}
+
+class MofMultiplicityElement {
+	attr Integer upper; // required in complex scenario
+	attr Integer lower; // required in complex scenario
+}
+
+class MofProperty extends MofTypedElement, MofMultiplicityElement {
+	ref MofClass[?]#ownedProperties clazz;
+	ref MofAssociation[?]#memberEnds association;
+	attr Boolean isComposite;
+}
+
+class MofAssociation {
+	ref MofProperty[2..*]#association memberEnds;
+}
+
+class MofPrimitiveType extends MofType {
+	
+}
+
+class MofBoolean extends MofPrimitiveType {
+	
+}
+
+class MofInteger extends MofPrimitiveType {
+	
+}
+
+class MofString extends MofPrimitiveType {
+	
+}
+
+// ETL
+
+class EtlModule extends EolLibraryModule { // DONE
+
+	val MofClass[*] mofClassesSource;
+	val MofAssociation[*] mofAssociationsSource;
+	val MofClass[*] mofClassesTarget;
+	val MofAssociation[*] mofAssociationsTarget;
+
+	// ?? importStatement*	
+	val ErlNamedRule pre;
+	val EtlTransformationRule[*] transformationRules;
+	val ErlNamedRule post;
+	val EolOperation[*] operations;
+}
+
+class ErlNamedRule { // DONE
+	attr String name;
+	val EolStatementBlock body;
+}
+
+class EtlTransformationRule { // DONE
+	attr String name;
+	attr String guardName;
+
+	ref EtlTransformationRule[*] extendsRules;
+	val EolMofClassFormalParameter[1] sourceParameter;
+	val EolMofClassFormalParameter[+] targetParameters;	
+	val EolLogicalExpression[?] guard;
+	val EolStatementBlock[?] body;
+	
+	// in concrete syntax modelled via annotations...
+	//val EolAnnotation[*] annotations;
+	attr Boolean abstractt;
+	attr Boolean lazy;
+	attr Boolean primary;
+	attr Boolean greedy;
+}
+
+// EOL Basics
+class EolLibraryModule { // DONE => NOT RELEVANT FOR NOW
+	
+}
+
+// EOL Operation Definition
+
+class EolOperation { // DONE
+	val EolAnnotation[*] annotations;
+	attr String name;
+	val EolFormalParameter[*] formalParameters;
+	val EolType[?] context;
+	val EolStatement[?] body;
+	val EolType returnType;
+}
+
+abstract class EolFormalParameter { // DONE
+	attr String name;
+	//val EolType type; // default EolAnyType
+}
+
+class EolMofClassFormalParameter extends EolFormalParameter {
+	ref MofClass referenced;
+	attr Boolean isSequence;
+}
+
+// EOL Annotations
+
+abstract class EolAnnotation extends EolExecuteableAnnotation { // DONE
+	attr String name;
+}
+
+class EolExecuteableAnnotation { // DONE
+	val EolLogicalExpression expression;
+}
+
+class SimpleAnnotation { // DONE
+	attr String[?] value;
+}
+
+// EOL Types // DONE
+abstract class EolType { // DONE
+	
+}
+
+abstract class EolAnyType extends EolType {
+
+}
+
+// TODO PathName extends EolPrimitiveExpression =check=> PathName = ModelElementType???
+class ModelElementType extends EolType, EolPrimitiveExpression {
+	attr String model;
+	attr String type;
+}
+
+class EolNative extends EolType, EolPrimitiveExpression {
+	attr String implementation;
+}
+
+abstract class EolPrimitiveType extends EolType {
+	
+}
+
+class EolBooleanType extends EolPrimitiveType {
+
+}
+
+class EolRealType extends EolPrimitiveType {
+
+}
+
+class EolIntegerType extends EolRealType {
+
+}
+
+class EolStringType extends EolPrimitiveType {
+
+}
+
+class EolMapType extends EolType {
+
+}
+
+abstract class EolCollectionType extends EolType, EolPrimitiveExpression {
+
+}
+
+class EolOrderedSetType extends EolCollectionType {
+
+}
+
+class EolSetType extends EolCollectionType {
+	
+}
+
+class EolBagType extends EolCollectionType {
+	
+}
+
+class EolSequenceType extends EolCollectionType {
+
+}
+
+
+
+
+class EolExpressionOrStatementBlock { // DONE
+}
+
+// EOL Expressions
+
+//logicalExpression
+//	:	relationalExpression ((op='or'^|op='and'^|op='xor'^|op='implies'^) relationalExpression
+//		{$op.setType(OPERATOR);})*
+//	;
+
+class EolLogicalExpression extends EolExpressionOrStatementBlock {
+	val EolRelationalExpression[1] relationalExpression;
+	val EolChainedLogicalExpression[?] chainedLogicalExpression;
+	//val SimpleOperationCallExpression[*] parameterValues;
+	//val DelcarativeOperationCallExpression[?] expression;
+	//val FeatureCallExpression source;
+}
+
+class EolChainedLogicalExpression {
+	attr EolLogicalOperator[1] logicalOperator;
+	val EolLogicalExpression[1] logicalExpression;
+}
+
+enum EolLogicalOperator {
+	and;
+	or;
+	not;
+	implies;
+	xor;
+}
+
+// relationalExpression
+//	:	additiveExpression ((op='=='^ relationalExpression | op='='^ relationalExpression |
+//	                      (op='>'^|op='<'^|op='>='^|op='<='^|op='<>'^) additiveExpression)
+//		{$op.setType(OPERATOR);})*
+//	;
+class EolRelationalExpression {
+	val EolAdditiveExpression[1] additiveExpression;
+	val EolGenericChainedRelationalExpression[?] chainedRelationalExpression;
+	
+}
+
+abstract class EolGenericChainedRelationalExpression {
+	
+}
+
+class EolChainedRelationalExpression extends EolGenericChainedRelationalExpression {
+	attr EolRelationalOperator[1] relationalOperator;
+	val EolRelationalExpression[1] relationalExpression;
+}
+
+enum EolRelationalOperator {
+	equal; // ==
+	assignment; // =
+}
+
+class EolComparingToAdditiveRelationalExpression extends EolGenericChainedRelationalExpression {
+	attr EolAdditiveComparisonOperator[1] additiveComparisonOperator;
+	val EolAdditiveExpression[1] additiveExpression;
+}
+
+enum EolAdditiveComparisonOperator {
+	//equal; // =
+	notEqual; // <>
+	greaterThan; // >
+	smallerThan; // <
+	greaterOrEqual; // >=
+	smallerOrEqual; // <=
+}
+
+//additiveExpression
+//	:	multiplicativeExpression ((op='+'^|op='-'^) multiplicativeExpression
+//		{$op.setType(OPERATOR);})*
+//	;
+
+class EolAdditiveExpression {
+	val EolMultiplicativeExpression[1] multiplicativeExpression;
+	val EolChainedAdditiveExpression[?] chainedAdditiveExpression;
+}
+
+class EolChainedAdditiveExpression {
+	attr EolAdditiveArithmeticalOperator[1] additiveArithmeticalOperator;
+	val EolAdditiveExpression[1] additiveExpression;
+}
+
+enum EolAdditiveArithmeticalOperator {
+	plus; // +
+	minus; // -	
+}
+
+//multiplicativeExpression
+//	:	unaryExpression ((op='*'^|op='/'^) unaryExpression
+//		{$op.setType(OPERATOR);})*
+//	;
+//
+class EolMultiplicativeExpression {
+	val EolUnaryExpression[1] unaryExpression;
+	val EolChainedMultiplicativeExpression[?] chainedMultiplicativeExpression;
+}
+
+class EolChainedMultiplicativeExpression {
+	attr EolMultiplicativeArithmeticalOperator[1] multiplicativeArithmeticalOperator;
+	val EolUnaryExpression[1] unaryExpression;
+}
+
+enum EolMultiplicativeArithmeticalOperator {
+	multiply; // *
+	divide; // /
+}
+
+
+
+//unaryExpression
+//	:	((op='not'^|op='-'^) {$op.setType(OPERATOR);})? postfixExpression
+//	;
+class EolUnaryExpression {
+	val EolUnaryOpratorNullable[?] unaryOperatorNullable;
+	val EolPostfixExpression[1] PostfixExpression;
+}
+
+class EolUnaryOpratorNullable {
+	attr EolUnaryOprator[1] unaryOperator;
+}
+
+enum EolUnaryOprator {
+	minusUnary; // -
+	not;
+}
+
+//	
+//postfixExpression
+//	:	itemSelectorExpression ((POINT|ARROW)^ fc=featureCall
+//		{setTokenType(fc,FEATURECALL);} (is='['^ logicalExpression ']'! {$is.setType(ITEMSELECTOR);})*
+//		)*
+//	;
+//
+class EolPostfixExpression {
+	val EolItemSelectorExpression[1] itemSelectorExpression;
+	val EolChainedFeatureCallPostfixExpression[?] chainedFeatureCallPostfixExpression;
+}
+
+class EolChainedFeatureCallPostfixExpression {
+	val EolFeatureCall[1] featureCall;
+	val EolLogicalExpression[?] featureCallAdditionalLogicalExpression;
+	val EolChainedFeatureCallPostfixExpression[?] chainedFeatureCallPostfixExpression;
+	
+}
+
+//itemSelectorExpression 
+//	: primitiveExpression (is='['^ primitiveExpression ']'!
+//		{$is.setType(ITEMSELECTOR);})*
+//	;
+//	
+class EolItemSelectorExpression {
+	val EolPrimitiveExpression[1] primitiveExpression;
+	val EolPrimitiveExpression[?] additionalPrimitiveExpression;
+}
+
+
+//featureCall
+//	: simpleFeatureCall | declarativeFeatureCall
+//	;
+abstract class EolFeatureCall extends EolPrimitiveExpression { 
+}
+
+//
+//simpleFeatureCall
+//	: 	n=NAME^ parameterList?
+//	{$n.setType(FEATURECALL);}
+//	;
+class EolSimpleFeatureCall extends EolFeatureCall {
+	attr String name;
+	val EolParameterList[?] parameterList;
+}
+
+class EolMofPropertyFeatureCall extends EolFeatureCall {
+	ref MofProperty[1] referencedMofProperty;
+}
+
+class EtlEquivalentMethodFeatureCall extends EolFeatureCall {
+	 // TODO validate: should only be applicable to something of type MofClass
+}
+
+class EolIsTypeOfSourceMofClassFeatureCall extends EolFeatureCall {
+	ref MofClass referencedMofClass;
+}
+
+//
+//parameterList
+//	@after {
+//		$tree.setImaginary(true);
+//		$tree.getExtraTokens().add($op);
+//		$tree.getExtraTokens().add($cp);
+//	}
+//	:	op='(' (logicalExpression (',' logicalExpression)*)? cp=')'
+//		-> ^(PARAMETERS logicalExpression*)
+//	;
+class EolParameterList {
+	val EolLogicalExpression[+] logicalExpressions;
+}
+
+//
+//declarativeFeatureCall
+//	@after {
+//		$tree.getExtraTokens().add($op);
+//		$tree.getExtraTokens().add($cp);
+//	}
+//	:	NAME^ op='('! formalParameterList '|'! logicalExpression (','! logicalExpression)* cp=')'!
+//	;
+
+//class SimpleOperationCallExpression extends OperationCallExpression  {
+//	// TODO: add everything derived from AbstractSimpleOperation	
+//}
+//class OperationCallExpression extends FeatureCallExpression {
+//	attr String operationName;
+//}
+//class PropertyCallExpression extends FeatureCallExpression {
+//	attr String property;	
+//}
+
+//
+//newExpression
+//	:	n='new'^ tn=typeName {setTokenType(tn,TYPE);} parameterList?
+//	{$n.setType(NEW);}
+//	;
+class EolNewExpression extends EolPrimitiveExpression {
+	ref MofClass[1] instantiatedMofClass;
+}
+//
+//variableDeclarationExpression
+//	@after{
+//		String txt;
+//		if (n != null) {txt = "new";}
+//		else { txt = "var";}
+//		$tree.getToken().setText(txt);
+//		$tree.getToken().setType(VAR);
+//	}
+//	:	v='var'^ NAME (':'! n='new'!? t=typeName {setTokenType(t, TYPE);} parameterList?)? 
+//	;
+class EolVariableDeclarationExpression extends EolPrimitiveExpression {
+	attr String name;
+}
+//
+//literalSequentialCollection
+//	@after {
+//		$tree.getExtraTokens().add($ob);
+//		$tree.getExtraTokens().add($cb);
+//	}
+//	:	(l='Collection'^|l='Sequence'^|l='List'^|l='Bag'^|l='Set'^|l='OrderedSet'^) ob='{'!  expressionListOrRange? cb='}'!
+//	{$l.setType(COLLECTION);}
+//	;
+// .. extends EolPrimitiveExpression
+
+//expressionRange
+//	: logicalExpression exp='..'^ logicalExpression
+//	{$exp.setType(EXPRRANGE);}
+//	; 
+//
+//expressionList
+//	@after {
+//		$tree.setImaginary(true);
+//	}
+//	: logicalExpression (',' logicalExpression)*
+//	-> ^(EXPRLIST logicalExpression+)
+//	; 
+//
+//expressionListOrRange
+//	:	expressionRange | expressionList
+//	;
+//
+//literalMapCollection
+//	@after {
+//		$tree.getExtraTokens().add($ob);
+//		$tree.getExtraTokens().add($cb);
+//	}
+//	:	m='Map'^ ob='{'! keyvalExpressionList? cb='}'!
+//	{$m.setType(MAP);}
+//	;
+// .. extends EolPrimitiveExpression
+//
+//keyvalExpressionList
+//	@after {
+//		$tree.setImaginary(true);
+//	}
+//	:	keyvalExpression (',' keyvalExpression)*
+//	-> ^(KEYVALLIST keyvalExpression+)
+//	;
+//
+//keyvalExpression
+//	// The first child is an additive expression, to avoid ambiguity in things like "1 = 2 = 3"
+//	:	additiveExpression eq='='^ logicalExpression
+//	{$eq.setType(KEYVAL);}
+//	;
+//primitiveExpression 
+//	:	literalSequentialCollection | literalMapCollection | literal | featureCall | pathName | nativeType
+//		| collectionType  | logicalExpressionInBrackets
+//		| newExpression | variableDeclarationExpression
+//	;
+abstract class EolPrimitiveExpression {
+}
+
+//
+//logicalExpressionInBrackets
+//	@after {
+//		$tree.getExtraTokens().add($ob);
+//		$tree.getExtraTokens().add($cb);
+//	}
+//	:	ob='('! logicalExpression cb=')'!
+//	;
+// .. extends EolPrimitiveExpression
+//	
+//literal
+//	:	STRING | INT | FLOAT | BOOLEAN
+//	;
+// .. extends EolPrimitiveExpression
+abstract class EolLiteral extends EolPrimitiveExpression {
+	
+}
+class EolStringLiteral extends EolPrimitiveExpression {
+	attr String value;
+}
+
+// TK extensions to allow proper variable references
+abstract class EolReferenceExpression extends EolPrimitiveExpression {
+}
+class EolFormalParameterReferenceExpression extends EolReferenceExpression {
+	ref EolFormalParameter[1] referencedFormalParameter;
+}
+class EolVariableReferenceExpression extends EolReferenceExpression {
+	ref EolVariableDeclarationExpression[1] referencedVarableDeclaration;
+}
+
+
+// EOL Statements
+
+class EolStatementBlock extends EolExpressionOrStatementBlock {
+	//val EolInlineOperationDeclaration[?] body;
+	val EolStatement[*] statements;
+}
+
+abstract class EolStatement {
+}
+
+//assignmentStatement
+//	@after {
+//		$tree.getExtraTokens().add($sem);
+//	}
+//	:	logicalExpression (normal=':='^ {normal.setType(ASSIGNMENT);}|special='::='^ {special.setType(SPECIAL_ASSIGNMENT);}) logicalExpression sem=';'!
+//		
+//	;
+class EolAssignmentStatement extends EolStatement {
+	attr Boolean isSpecial;
+	val EolLogicalExpression logicalExpressionLeft;
+	val EolLogicalExpression logicalExpressionRight;
+}
+
+// expressionStatement
+//	@after {
+//		$tree.getExtraTokens().add($sem);
+//	}
+//	:	(postfixExpression op='='^ logicalExpression {$op.setType(OPERATOR);} | logicalExpression) sem=';'!
+//	;
+abstract class EolExpressionStatement extends EolStatement {
+}
+
+class EolAssignmentExpressionStatement extends EolExpressionStatement {
+	val EolPostfixExpression postfixExpressionLeft;
+	val EolLogicalExpression logicalExpressionRight;	
+}
+
+class EolLogicalExpressionStatement extends EolExpressionStatement {
+	val EolLogicalExpression logicalExpression;
+}
+
+//forStatement
+//	:	f='for'^ '('! formalParameter 'in'! logicalExpression ')'! statementOrStatementBlock
+//	{$f.setType(FOR);}
+//	;
+class EolFor extends EolStatement {
+	val EolFormalParameter[1] formalParameter;
+	val EolLogicalExpression[1] iteratedSequence; // must resolve to EolSequence
+	val EolStatementBlock[1] statementBlock;	
+}
+
+
+
+// TODO - this is old ... compare with grammar & EOL code..
+
+//class EolVariableDeclarationWithInitialValue extends EolVariableDeclaration {
+//	val EolType initialValue;	
+//}
+//
+//class EolVariableDeclarationWithInitialExpression extends EolVariableDeclaration {
+//	val EolLogicalExpression initialExpression;	
+//}
+//
+//class EolIf extends EolStatement {
+//	val EolLogicalExpression condition;
+//	val EolStatement[*] statementsWhenTrue;
+//	val EolStatement[*] statementsWhenFalse;
+//}
+//
+//class EolSwitch extends EolStatement {
+//	val EolLogicalExpression expression;
+//	val EolSwitchCase[*] cases;
+//	val EolStatement[*] defaultCaseStatements;
+//}
+//
+//class EolSwitchCase extends EolStatement {
+//	val EolLogicalExpression expression;
+//	val EolStatement[*] statements;
+//}
+//
+//class EolWhile extends EolStatement {
+//	val EolLogicalExpression condition;
+//	val EolStatement[*] statements;
+//}
+//
+//class EolForEach extends EolStatement {
+//	attr String iteratorVariableName;
+//	val EolType iteratorType;
+//	val EolLogicalExpression iteratedCollection; // must resolve to EolCollection
+//	val EolStatement[*] statements;
+//}
+//
+//class EolBreak extends EolStatement { // only inside loops
+//	
+//}
+//
+//class EolBreakAll extends EolStatement { // only inside loops
+//	
+//}
+//
+//class EolContinue extends EolStatement { // only inside loops
+//	
+//}
+//
+//class EolThrow extends EolStatement { // only inside loops
+//	val EolLogicalExpression[?] exceptionReason;
+//}
+

@@ -1,0 +1,18 @@
+@Spec {
+	metamodel "Tree" {
+		nsUri: "Tree"
+	}
+}
+
+package  {
+	Tree "Tree1" {
+		children: Tree "Tree2" {
+		}, Tree "Tree3" {
+		}, Tree "Tree4" {
+		}, Tree "Tree5" {
+			children: Tree "Tree7" {
+				label: "Tree7"
+			}
+		}
+	}
+}

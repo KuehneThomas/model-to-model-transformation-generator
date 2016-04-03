@@ -1,0 +1,378 @@
+@Spec {
+	metamodel "etlMetaModel" {
+		nsUri: "etlMetaModel"
+	}
+} 
+
+etlMetaModel {
+	EtlModule "001_umlclass2relational" {
+		mofClassesSource: MofClass "UmlPackage" {
+				name: "UmlPackage"
+				ownedProperties: MofProperty "UmlPackage.Name" { name: "Name" },
+								 MofProperty "UmlPackage.Classes" { name: "Classes" association: MofAssociation "UmlPackage2UmlClass" },
+								 MofProperty "UmlPackage.Associations" { name: "Associations" association: MofAssociation "UmlPackage2UmlAssociation" }
+			},
+			MofClass "UmlClass" {
+				name: "UmlClass"
+				ownedProperties: MofProperty "UmlClass.Name" { name: "Name" }, 
+								 MofProperty "UmlClass.Package" { name: "Package" association: MofAssociation "UmlPackage2UmlClass" }, 
+								 MofProperty "UmlClass.OutgoingRelations" { name: "outgoingRelations" association: MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" },
+								 MofProperty "UmlClass.IncomingRelations" { name: "incomingRelations" association: MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" }
+			},
+			MofClass "UmlAssociation" {
+			 	name: "UmlAssociation" 
+				ownedProperties: MofProperty "UmlAssociation.Name" { name: "Name" }, 
+								 MofProperty "UmlAssociation.Package" { name: "Package" association: MofAssociation "UmlPackage2UmlAssociation" }, 
+								 MofProperty "UmlAssociation.Source" { name: "Source" association: MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" }, 
+								 MofProperty "UmlAssociation.Target" { name: "Target" association: MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" }
+			}
+		mofAssociationsSource: MofAssociation "UmlPackage2UmlClass" {},
+							   MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" {}, 
+							   MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" {},
+							   MofAssociation "UmlPackage2UmlAssociation" {}
+		
+		mofClassesTarget: MofClass "RelationalSchema" {
+				name: "RelationalSchema"
+				ownedProperties: MofProperty "RelationalSchema.Name" { name: "Name" },
+								 MofProperty "RelationalSchema.Tables" { name: "Tables" association: MofAssociation "RelationalSchema2RelationalTable" }
+			},
+			MofClass "RelationalTable" {
+				name: "RelationalTable" 
+				ownedProperties: MofProperty "RelationalTable.Name" { name: "Name" }, 
+								 MofProperty "RelationalTable.Schema" { name: "Schema" association: MofAssociation "RelationalSchema2RelationalTable" },
+								 MofProperty "RelationalTable.ForeignKeys" { name: "ForeignKeys" association:  MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" },
+								 MofProperty "RelationalTable.ReferencedBy" { name: "ReferencedBy" association:  MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" }
+			},
+			MofClass "RelationalForeignKey" {
+				name: "RelationalForeignKey"
+				ownedProperties: MofProperty "RelationalForeignKey.Name" { name: "Name" }, 
+								 MofProperty "RelationalForeignKey.OwnedByTable" { name: "OwnedByTable" association:  MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" }, 
+								 MofProperty "RelationalForeignKey.ReferencedTable" { name: "ReferencedTable" association:  MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" }
+			}
+		mofAssociationsTarget: MofAssociation "RelationalSchema2RelationalTable" {},
+							   MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" {},
+							   MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" {}
+	 
+		transformationRules: EtlTransformationRule "UmlPackage2RelationalSchema" {
+			name: "UmlPackage2RelationalSchema"
+			sourceParameter: EolMofClassFormalParameter "UmlPackage2RelationalSchemaSource" {
+			 			name: "umlPackage"
+			 			referenced: MofClass "UmlPackage"
+			 		}
+			targetParameters: EolMofClassFormalParameter "UmlPackage2RelationalSchemaTarget" {
+						name: "relationalSchema"
+						referenced: MofClass "RelationalSchema"
+					} 
+			body: EolStatementBlock {
+							statements: EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlPackage2RelationalSchemaSource"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalSchema.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													} 
+											}
+									}
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlPackage2RelationalSchemaTarget"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlPackage.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							} 
+				    }
+		}, EtlTransformationRule "UmlClass2RelationalTable" {
+			name: "UmlClass2RelationalTable"
+			sourceParameter: EolMofClassFormalParameter "UmlClass2RelationalTableSource" {
+			 			name: "umlClass"
+			 			referenced: MofClass "UmlClass"
+			 		}
+			targetParameters: EolMofClassFormalParameter "UmlClass2RelationalTableTarget" {
+						name: "relationalTable"
+						referenced: MofClass "RelationalTable"
+					} 
+			body: EolStatementBlock {
+							statements: EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlClass2RelationalTableTarget"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalTable.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													} 
+											}
+									}
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlClass2RelationalTableSource"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlClass.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}, EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlClass2RelationalTableTarget"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalTable.Schema"
+																				 			}
+																				 	}
+																			}
+																	}
+															} 
+													} 
+											}
+									}
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlClass2RelationalTableSource"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlClass.Package"
+																				 			} 
+																				 		chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 			featureCall: EtlEquivalentMethodFeatureCall "UmlClass.Package.Equivalent()" { }
+																				 		}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							} 
+				    }
+		}, EtlTransformationRule "UmlAssociation2RelationalForeignKey" {
+			name: "UmlAssociation2RelationalForeignKey"
+			sourceParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeySource" {
+			 			name: "umlAssociation"
+			 			referenced: MofClass "UmlAssociation"
+			 		}
+			targetParameters: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeyTarget" {
+						name: "relationalForeignKey"
+						referenced: MofClass "RelationalForeignKey"
+					} 
+			body: EolStatementBlock { 
+							statements: EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeyTarget"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalForeignKey.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													} 
+											}
+									} 
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeySource"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlAssociation.Name"
+																				 			}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}, EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeyTarget"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalForeignKey.OwnedByTable"
+																				 			}
+																				 	}
+																			}
+																	}
+															} 
+													} 
+											}
+									}
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeySource"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlAssociation.Source"
+																				 			} 
+																				 		chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 			featureCall: EtlEquivalentMethodFeatureCall "UmlAssociation.Source.Equivalent()" { }
+																				 		}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}, EolAssignmentStatement { 
+								logicalExpressionLeft: EolLogicalExpression {
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression { 
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeyTarget"
+																					 	} 
+																					} 
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "RelationalForeignKey.ReferencedTable"
+																				 			}
+																				 	}
+																			}
+																	}
+															} 
+													} 
+											}
+									}
+								logicalExpressionRight: EolLogicalExpression { 
+										relationalExpression: EolRelationalExpression {
+												additiveExpression: EolAdditiveExpression {
+														multiplicativeExpression: EolMultiplicativeExpression {
+																unaryExpression: EolUnaryExpression {
+																		PostfixExpression: EolPostfixExpression {
+																				itemSelectorExpression: EolItemSelectorExpression {
+																						primitiveExpression: EolFormalParameterReferenceExpression { 
+																							referencedFormalParameter: EolMofClassFormalParameter "UmlAssociation2RelationalForeignKeySource"
+																					 	}
+																					}
+																				 chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 		featureCall: EolMofPropertyFeatureCall {
+																				 				referencedMofProperty: MofProperty "UmlAssociation.Target"
+																				 			} 
+																				 		chainedFeatureCallPostfixExpression: EolChainedFeatureCallPostfixExpression {
+																				 			featureCall: EtlEquivalentMethodFeatureCall "UmlAssociation.Target.Equivalent()" { }
+																				 		}
+																				 	}
+																			}
+																	}
+															}
+													}
+											}
+									}
+							} 
+				    }
+			}
+	}
+}
+
+ 

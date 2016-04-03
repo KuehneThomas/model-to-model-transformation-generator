@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UmlPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="umlClassMetaModel"
+    Name="Vehicles">
+  <Classes Name="Car" outgoingRelations="#//@Associations.0"/>
+  <Classes Name="Engine" incomingRelations="#//@Associations.0"/>
+  <Associations Name="Car2Engine" Source="#//@Classes.0" Target="#//@Classes.1"/>
+</UmlPackage>

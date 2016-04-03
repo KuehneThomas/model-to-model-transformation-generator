@@ -1,0 +1,23 @@
+rule UmlPackage2RelationalSchema
+  	transform umlPackage : Source!UmlPackage
+  	to relationalSchema : Target!RelationalSchema {
+  
+  	relationalSchema.Name = umlPackage.Name; 
+}
+
+rule UmlClass2RelationalTable 
+	transform umlClass : Source!UmlClass
+	to relationalTable : Target!RelationalTable {
+	
+	relationalTable.Name = umlClass.Name;
+	relationalTable.Schema = umlClass.Package.equivalent();
+}
+
+rule UmlAssociation2RelationalForeignKey
+	transform umlAssociation : Source!UmlAssociation
+	to relationalForeignKey : Target!RelationalForeignKey {
+	
+	relationalForeignKey.Name = umlAssociation.Name;
+	relationalForeignKey.OwnedByTable = umlAssociation.Source.equivalent();
+	relationalForeignKey.ReferencedTable = umlAssociation.Target.equivalent();	
+}

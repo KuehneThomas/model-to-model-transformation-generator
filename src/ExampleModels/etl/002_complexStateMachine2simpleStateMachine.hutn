@@ -1,0 +1,77 @@
+@Spec {
+	metamodel "etlMetaModel" {
+		nsUri: "etlMetaModel"
+	}
+} 
+
+etlMetaModel {
+	EtlModule "002_complexStateMachine2simpleStateMachine" { 
+		mofClassesSource: MofClass "ComplexStateMachine" {
+				name: "ComplexStateMachine"
+				ownedProperties: MofProperty "ComplexStateMachine.Name" { name: "Name" },
+								 MofProperty "ComplexStateMachine.States" { name: "States" association: MofAssociation "ComplexStateMachine2ComplexState" lower: 0 },
+								 MofProperty "ComplexStateMachine.Transitions" { name: "Transitions" association: MofAssociation "ComplexStateMachine2ComplexTransition" lower: 0 },
+								 MofProperty "ComplexStateMachine.InitialState" { name: "InitialState" association: MofAssociation "ComplexStateMachine2ComplexInitialState" upper: 1 lower: 1 }
+			},
+			MofClass "ComplexTransition" {
+				name: "Transition"
+				ownedProperties: MofProperty "ComplexTransition.Name" { name: "Name" }, 
+								 MofProperty "ComplexTransition.ComplexStateMachine" { name: "ComplexStateMachine" association: MofAssociation "ComplexStateMachine2ComplexTransition" upper: 1 lower: 1 }, 
+								 MofProperty "ComplexTransition.Source" { name: "Source" association: MofAssociation "ComplexTransitionSource2ComplexStateOutgoing" upper: 1 lower: 1 },
+								 MofProperty "ComplexTransition.Target" { name: "Target" association: MofAssociation "ComplexTransitionTarget2ComplexStateIncoming" upper: 1 lower: 1 }
+			},
+			MofClass "ComplexState" {
+			 	name: "State" 
+				ownedProperties: MofProperty "ComplexState.Name" { name: "Name" }, 
+								 MofProperty "ComplexState.ComplexStateMachine" { name: "ComplexStateMachine" association: MofAssociation "ComplexStateMachine2ComplexState" upper: 1 lower: 1 }, 
+								 MofProperty "ComplexState.InitialStateOfComplexStateMachines" { name: "InitialStateOfComplexStateMachines" association: MofAssociation "ComplexStateMachine2ComplexInitialState" },
+								 MofProperty "ComplexState.Outgoing" { name: "Outgoing" association: MofAssociation "ComplexTransitionSource2ComplexStateOutgoing" lower: 0 }, 
+								 MofProperty "ComplexState.Incoming" { name: "Incoming" association: MofAssociation "ComplexTransitionTarget2ComplexStateIncoming" lower: 0 },
+								 MofProperty "ComplexState.CompositeState" { name: "CompositeState" association: MofAssociation "ComplexState2ComplexCompositeState" upper: 1 lower: 0 },
+								 MofProperty "ComplexState.InitialStateOfCompositeStates" { name: "InitialStateOfCompositeStates" association: MofAssociation "ComplexCompositeState2ComplexInitialState" lower: 0 }
+			},
+			MofClass "CompositeState" {
+				name: "CompositeState"
+				clazz: MofClass "ComplexState"
+				ownedProperties: MofProperty "ComplexCompositeState.Name" { name: "Name" },
+								 MofProperty "ComplexCompositeState.States" { name: "States" association: MofAssociation "ComplexState2ComplexCompositeState" lower: 0 },
+								 MofProperty "ComplexCompositeState.InitialState" { name: "InitialState" association: MofAssociation "ComplexCompositeState2ComplexInitialState" upper: 1 lower: 1 }
+			}
+		mofAssociationsSource: MofAssociation "ComplexStateMachine2ComplexState" {},
+							   MofAssociation "ComplexStateMachine2ComplexTransition" {}, 
+							   MofAssociation "ComplexStateMachine2ComplexInitialState" {},
+							   MofAssociation "ComplexTransitionSource2ComplexStateOutgoing" {},
+							   MofAssociation "ComplexTransitionTarget2ComplexStateIncoming" {},
+							   MofAssociation "ComplexState2ComplexCompositeState" {},
+							   MofAssociation "ComplexCompositeState2ComplexInitialState" {}
+		
+		mofClassesTarget: MofClass "SimpleStateMachine" {
+				name: "SimpleStateMachine"
+				ownedProperties: MofProperty "SimpleStateMachine.Name" { name: "Name" },
+								 MofProperty "SimpleStateMachine.States" { name: "States" association: MofAssociation "SimpleStateMachine2SimpleState" lower: 0 },
+								 MofProperty "SimpleStateMachine.Transitions" { name: "Transitions" association: MofAssociation "SimpleStateMachine2SimpleTransition" lower: 0 },
+								 MofProperty "SimpleStateMachine.InitialState" { name: "InitialState" association: MofAssociation "SimpleStateMachine2SimpleInitialState" upper: 1 lower: 1 }
+			},
+			MofClass "SimpleTransition" {
+				name: "Transition"
+				ownedProperties: MofProperty "SimpleTransition.Name" { name: "Name" }, 
+								 MofProperty "SimpleTransition.SimpleStateMachine" { name: "SimpleStateMachine" association: MofAssociation "SimpleStateMachine2SimpleTransition" upper: 1 lower: 1 }, 
+								 MofProperty "SimpleTransition.Source" { name: "Source" association: MofAssociation "SimpleTransitionSource2SimpleStateOutgoing" upper: 1 lower: 1 },
+								 MofProperty "SimpleTransition.Target" { name: "Target" association: MofAssociation "SimpleTransitionTarget2SimpleStateIncoming" upper: 1 lower: 1 }
+			},
+			MofClass "SimpleState" {
+			 	name: "State" 
+				ownedProperties: MofProperty "SimpleState.Name" { name: "Name" }, 
+								 MofProperty "SimpleState.SimpleStateMachine" { name: "SimpleStateMachine" association: MofAssociation "SimpleStateMachine2SimpleState" upper: 1 lower: 1 }, 
+								 MofProperty "SimpleState.InitialStateOfSimpleStateMachines" { name: "InitialStateOfSimpleStateMachines" association: MofAssociation "SimpleStateMachine2SimpleInitialState" lower: 0 },
+								 MofProperty "SimpleState.Outgoing" { name: "Outgoing" association: MofAssociation "SimpleTransitionSource2SimpleStateOutgoing" lower: 0 }, 
+								 MofProperty "SimpleState.Incoming" { name: "Incoming" association: MofAssociation "SimpleTransitionTarget2SimpleStateIncoming" lower: 0 }
+			}
+		mofAssociationsTarget: MofAssociation "SimpleStateMachine2SimpleState" {},
+							   MofAssociation "SimpleStateMachine2SimpleTransition" {}, 
+							   MofAssociation "SimpleStateMachine2SimpleInitialState" {},
+							   MofAssociation "SimpleTransitionSource2SimpleStateOutgoing" {},
+							   MofAssociation "SimpleTransitionTarget2SimpleStateIncoming" {}
+		transformationRules: null
+	}
+}

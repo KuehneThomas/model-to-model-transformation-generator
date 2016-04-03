@@ -1,0 +1,9 @@
+@Spec {
+	metamodel "relationalMetaModel" {
+		nsUri: "relationalMetaModel"
+	}
+}
+
+package  {
+
+}

@@ -1,0 +1,21 @@
+@Spec {
+	metamodel "umlClassMetaModel" {
+		nsUri: "umlClassMetaModel"
+	}
+}
+
+package  { 
+	UmlPackage "Vehicles" {
+		Name: "Vehicles"
+		Classes: UmlClass "Car" {
+			Name: "Car"
+		}, UmlClass "Engine" {
+			Name: "Engine"
+		}
+		Associations: UmlAssociation {
+			Name: "Car2Engine"
+			Source: UmlClass "Car"
+			Target: UmlClass "Engine"
+		}
+	}
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EtlModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="etlMetaModel">
+  <mofClassesSource name="ComplexStateMachine">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="States" lower="0" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="Transitions" lower="0" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="InitialState" upper="1" lower="1" association="#//@mofAssociationsSource.2"/>
+  </mofClassesSource>
+  <mofClassesSource name="Transition">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="ComplexStateMachine" upper="1" lower="1" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="Source" upper="1" lower="1" association="#//@mofAssociationsSource.3"/>
+    <ownedProperties name="Target" upper="1" lower="1" association="#//@mofAssociationsSource.4"/>
+  </mofClassesSource>
+  <mofClassesSource name="State" superclasses="#//@mofClassesSource.3">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="ComplexStateMachine" upper="1" lower="1" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="InitialStateOfComplexStateMachines" association="#//@mofAssociationsSource.2"/>
+    <ownedProperties name="Outgoing" lower="0" association="#//@mofAssociationsSource.3"/>
+    <ownedProperties name="Incoming" lower="0" association="#//@mofAssociationsSource.4"/>
+    <ownedProperties name="CompositeState" upper="1" lower="0" association="#//@mofAssociationsSource.5"/>
+    <ownedProperties name="InitialStateOfCompositeStates" lower="0" association="#//@mofAssociationsSource.6"/>
+  </mofClassesSource>
+  <mofClassesSource name="CompositeState" clazz="#//@mofClassesSource.2">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="States" lower="0" association="#//@mofAssociationsSource.5"/>
+    <ownedProperties name="InitialState" upper="1" lower="1" association="#//@mofAssociationsSource.6"/>
+  </mofClassesSource>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.1 #//@mofClassesSource.2/@ownedProperties.1"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.2 #//@mofClassesSource.1/@ownedProperties.1"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.3 #//@mofClassesSource.2/@ownedProperties.2"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.2 #//@mofClassesSource.2/@ownedProperties.3"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.3 #//@mofClassesSource.2/@ownedProperties.4"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.2/@ownedProperties.5 #//@mofClassesSource.3/@ownedProperties.1"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.2/@ownedProperties.6 #//@mofClassesSource.3/@ownedProperties.2"/>
+  <mofClassesTarget name="SimpleStateMachine">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="States" lower="0" association="#//@mofAssociationsTarget.0"/>
+    <ownedProperties name="Transitions" lower="0" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="InitialState" upper="1" lower="1" association="#//@mofAssociationsTarget.2"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="Transition">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="SimpleStateMachine" upper="1" lower="1" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="Source" upper="1" lower="1" association="#//@mofAssociationsTarget.3"/>
+    <ownedProperties name="Target" upper="1" lower="1" association="#//@mofAssociationsTarget.4"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="State">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="SimpleStateMachine" upper="1" lower="1" association="#//@mofAssociationsTarget.0"/>
+    <ownedProperties name="InitialStateOfSimpleStateMachines" lower="0" association="#//@mofAssociationsTarget.2"/>
+    <ownedProperties name="Outgoing" lower="0" association="#//@mofAssociationsTarget.3"/>
+    <ownedProperties name="Incoming" lower="0" association="#//@mofAssociationsTarget.4"/>
+  </mofClassesTarget>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.0/@ownedProperties.1 #//@mofClassesTarget.2/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.0/@ownedProperties.2 #//@mofClassesTarget.1/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.0/@ownedProperties.3 #//@mofClassesTarget.2/@ownedProperties.2"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.2 #//@mofClassesTarget.2/@ownedProperties.3"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.3 #//@mofClassesTarget.2/@ownedProperties.4"/>
+</EtlModule>

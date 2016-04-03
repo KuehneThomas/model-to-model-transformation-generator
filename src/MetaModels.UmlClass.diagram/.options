@@ -1,0 +1,7 @@
+# Tracing options for the MetaModels.UmlClass.diagram plug-in
+
+# Common issues
+MetaModels.UmlClass.diagram/debug=false
+
+# Visual IDs
+MetaModels.UmlClass.diagram/debug/visualID=false

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EpislonExecuter"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/guice-3.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/logback-1.0.13"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.eclipse.emf-min"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.eclipse.epsilon-min"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/slf4j-1.7.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqljdbc-4.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate-4.3.1"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MetaModels.Etl"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
