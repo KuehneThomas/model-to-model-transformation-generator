@@ -22,8 +22,8 @@ The output is a model-to-model transformation from the source to the target meta
     * import /src/ into your Eclipse workspace
 	* import [/ext/eclipse.userlibraries](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/ext/eclipse.userlibraries) into Eclipse
 	* create the MS SQL database using [/src/TransformationGeneratorEvaluation-Database.sql](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/src/TransformationGeneratorEvaluation-Database.sql)
-	* `execute [/src/TransformationGenerator/src/transformationGenerator/main/Starter.java](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/src/TransformationGenerator/src/transformationGenerator/main/Starter.java)`: The best solution(s) found will be shown in the output window at the end.
-	* `evaluate execution using [/src/TransformationGeneratorEvaluation.xlsx](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/src/TransformationGeneratorEvaluation.xlsx)`: shows fitness convergence and provides an overview of the fitness landscape.
+	* execute [/src/TransformationGenerator/src/transformationGenerator/main/Starter.java](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/src/TransformationGenerator/src/transformationGenerator/main/Starter.java): The best solution(s) found will be shown in the output window at the end.
+	* evaluate execution using [/src/TransformationGeneratorEvaluation.xlsx](https://github.com/KuehneThomas/model-to-model-transformation-generator/blob/master/src/TransformationGeneratorEvaluation.xlsx): shows fitness convergence and provides an overview of the fitness landscape.
 	
 ## Documentation
 The quality of the transformation depends on the examples. Additionally, the generator is limited to the creation of a sub-set of all transformations. Thus, the solution might be incomplete and must be refined manually. For more information please read the publications:
