@@ -1,0 +1,142 @@
+% Please change only this file to adapt your document's structure.
+
+\cleardoublepage
+\pagenumbering{arabic} % use arabic page numbers again
+
+\input{01_Introduction}
+\glsresetall
+\input{02_Foundations}
+\glsresetall
+\input{03_M2M_Scenarios}
+\glsresetall
+\input{04_Algorithm_Design}
+\glsresetall
+\input{05_Prototype_Design}
+\glsresetall
+\input{06_Evaluation}
+\glsresetall
+\input{07_Summarized_Approach}
+\glsresetall
+\input{08_Conclusions}
+\glsresetall
+
+%######################## Appendix #########################################################
+%\clearemptydoublepage
+\appendix
+%\addtocontents{toc}{\vspace{2mm}}
+%\addcontentsline{toc}{chapter}{Appendix}
+%\addtocontents{toc}{\protect\contentsline {chapter}{Appendix}{}{appendix.A}}
+%\addtocontents{toc}{\vspace{-4mm}}
+\input{Appendix}
+
+%######################## Figures #########################################################
+
+%\renewcommand\listfigurename{Appendix B \\ \\ List of Figures}
+%\addcontentsline{toc}{chapter}{\texorpdfstring{\listfigurename}{List of Figures}}
+%\listoffigures
+%\setcounter{chapter}{2}
+
+%\ifthenelse{
+%	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypMaster}
+%	\OR
+%	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypDiplom}
+%	\OR
+%	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypBachelor}
+%	}
+%{
+%	%then: add a list of tables
+%	
+%	%\clearemptydoublepage
+%	\listoftables
+%}
+%{
+%	%else: do nothing
+%}
+
+%\setcounter{secnumdepth}{4} % create section numbers up to level 4, e.g.: 3.2.5.4, usually not necessary
+
+%######################## Remainder ######################################################
+
+%--- glossary -----------------------------------------------------------------------
+\chapter{Glossary}\label{chapGlossary}
+
+
+% capitalise first letters of all glossary entry titles
+\makeatletter
+\let\oldmakefirstuc\makefirstuc
+\renewcommand*{\makefirstuc}[1]{%
+  \def\gls@add@space{}%
+  \mfu@capitalisewords#1 \@nil\mfu@endcap
+}
+\def\mfu@capitalisewords#1 #2\mfu@endcap{%
+  \def\mfu@cap@first{#1}%
+  \def\mfu@cap@second{#2}%
+  \gls@add@space
+  \oldmakefirstuc{#1}%
+  \def\gls@add@space{ }%
+  \ifx\mfu@cap@second\@nnil
+    \let\next@mfu@cap\mfu@noop
+  \else
+    \let\next@mfu@cap\mfu@capitalisewords
+  \fi
+  \next@mfu@cap#2\mfu@endcap
+}
+\makeatother
+
+\newglossarystyle{tree2}{%
+  \renewenvironment{theglossary}%
+    {\setlength{\parindent}{0pt}%
+     \setlength{\parskip}{0pt plus 0.3pt}}%
+    {}%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand{\glossaryentryfield}[5]{%
+    \hangindent0pt\relax
+    \parindent0pt\relax
+    \glsentryitem{##1}\textbf{\glstarget{##1}{\Glsentryfirst{##1}}}% headings: this is the first line that has been changed in order to get the "first" version in combination with \glsresetall
+    \ifx\relax##4\relax
+    \else
+      \space(##4)%
+    \fi
+    \space ##3\glspostdescription \space ##5\par}%
+  \renewcommand{\glossarysubentryfield}[6]{%
+    \hangindent##1\glstreeindent\relax
+    \parindent##1\glstreeindent\relax
+    \ifnum##1=1\relax
+      \glssubentryitem{##2}%
+    \fi
+    \textbf{\glstarget{##2}{\Glsentryfirst{##2}}}% entries: this is the second line that has been changed in order to get the "first" version in combination with \glsresetall
+    \ifx\relax##5\relax
+    \else
+      \space(##5)%
+    \fi
+    \space##4\glspostdescription\space ##6\par}%
+  \renewcommand*{\glsgroupskip}{\indexspace}}
+\newglossarystyle{treegroup2}{%
+  \glossarystyle{tree2}%
+  \renewcommand{\glsgroupheading}[1]{\par
+    \noindent\textbf{\glsgetgrouptitle{##1}}\par\indexspace}%
+}
+
+%\glsresetall
+\glossarystyle{tree2}%{indexgroup}
+
+%\printglossaries
+\let\cleardoublepage\clearpage
+\printglossary[type=SoftwareEngineering,style=tree2] 
+\printglossary[type=Algorithms,style=tree2] 
+\printglossary[type=EvolutionaryAlgorithms,style=tree2] 
+\printglossary[type=SwarmIntelligentAlgorithms,style=tree2] 
+
+%--- bibliography -----------------------------------------------------------------------
+%\clearemptydoublepage
+%\bibliographystyle{myalphadin}
+\bibliographystyle{alphadin}
+%\bibliographystyle{alpha}
+%\bibliographystyle{geralpha}
+%\bibliographystyle{dinat}
+\bibliography{thesis}
+
+%--- index ------------------------------------------------------------------------
+%\clearemptydoublepage
+%\printindex

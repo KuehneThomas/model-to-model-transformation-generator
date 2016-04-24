@@ -1,0 +1,28 @@
+@namespace(uri="umlClassMetaModel", prefix="")
+@gmf
+package umlClassMetaModel;
+
+@gmf.diagram
+class UmlPackage {
+	attr String Name;
+	val UmlClass[*]#Package Classes;
+	val UmlAssociation[*]#Package Associations;
+}
+
+@gmf.node(label = "Name")
+class UmlClass {
+  ref UmlPackage[1]#Classes Package;
+  attr String Name;
+  @gmf.link(source.decoration="arrow", style="dash")
+  ref UmlAssociation[*]#Source outgoingRelations;
+  @gmf.link(source.decoration="arrow", style="dash")
+  ref UmlAssociation[*]#Target incomingRelations;
+}
+
+@gmf.node(label = "Name")
+class UmlAssociation {
+  	ref UmlPackage[1]#Associations Package;
+	attr String Name;
+	ref UmlClass[1]#outgoingRelations Source;
+	ref UmlClass[1]#incomingRelations Target;
+}

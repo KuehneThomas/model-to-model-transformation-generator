@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ComplexStateMachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="complexStateMachineMetaModel" Name="DHC" InitialState="//@States.0">
+  <States Name="DHC Off" Outgoing="//@Transitions.0" Incoming="//@Transitions.3"/>
+  <States Name="DHC Ready" Outgoing="//@Transitions.1" Incoming="//@Transitions.2" CompositeState="//@States.3"/>
+  <States Name="DHC Operating" Outgoing="//@Transitions.2" Incoming="//@Transitions.1" CompositeState="//@States.3"/>
+  <States xsi:type="CompositeState" Name="DHC On" Outgoing="//@Transitions.3" Incoming="//@Transitions.0" States="//@States.1 //@States.2" InitialState="//@States.1"/>
+  <Transitions Name="DHC Off -> DHC On" Source="//@States.0" Target="//@States.3"/>
+  <Transitions Name="DHC Ready -> DHC Operating" Source="//@States.1" Target="//@States.2"/>
+  <Transitions Name="DHC Operating -> DHC Ready" Source="//@States.2" Target="//@States.1"/>
+  <Transitions Name="DHC On -> DHC Off" Source="//@States.3" Target="//@States.0"/>
+</ComplexStateMachine>

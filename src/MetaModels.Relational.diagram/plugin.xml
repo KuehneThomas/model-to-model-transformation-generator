@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+-->
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="relationalmetamodel_diagram"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="relationalmetamodel_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/RelationalMetaModelDiagramFile.gif"
+         extensions="relationalmetamodel_diagram"
+         default="true"
+         class="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditor"
+         matchingStrategy="relationalMetaModel.diagram.part.RelationalMetaModelMatchingStrategy"
+         contributorClass="relationalMetaModel.diagram.part.RelationalMetaModelDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="relationalMetaModel.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/RelationalMetaModelDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="relationalMetaModel.diagram.part.RelationalMetaModelCreationWizard"
+  	     id="relationalMetaModel.diagram.part.RelationalMetaModelCreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="MetaModels.Relational.diagram.InitDiagram"
+            nameFilter="*.relationalmetamodel"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="relationalMetaModel.diagram.part.RelationalMetaModelInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="MetaModels.Relational.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="RelationalMetaModelPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
+         id="RelationalMetaModelPresentationPrint">
+         <Priority name="Lowest"/>
+         <ViewId id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="RelationalMetaModelPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="RelationalMetaModelRender">
+         <Priority name="Lowest"/>
+         <ViewId id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelMarkerNavigationProvider">
+         <MarkerType name="MetaModels.Relational.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="diagnostic" name="RelationalMetaModel Plugin problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelValidationDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="relationalMetaModel.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="MetaModels.Relational.diagram.general"
+            name="%prefpage.MetaModels.Relational.diagram.general"
+            class="relationalMetaModel.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="MetaModels.Relational.diagram.appearance"
+            name="%prefpage.MetaModels.Relational.diagram.appearance"
+            category="MetaModels.Relational.diagram.general"
+            class="relationalMetaModel.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="MetaModels.Relational.diagram.connections"
+            name="%prefpage.MetaModels.Relational.diagram.connections"
+            category="MetaModels.Relational.diagram.general"
+            class="relationalMetaModel.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="MetaModels.Relational.diagram.printing"
+            name="%prefpage.MetaModels.Relational.diagram.printing"
+            category="MetaModels.Relational.diagram.general"
+            class="relationalMetaModel.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="MetaModels.Relational.diagram.rulersAndGrid"
+            name="%prefpage.MetaModels.Relational.diagram.rulersAndGrid"
+            category="MetaModels.Relational.diagram.general"
+            class="relationalMetaModel.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="MetaModels.Relational.diagram"
+            labelProvider="relationalMetaModel.diagram.sheet.RelationalMetaModelSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="MetaModels.Relational.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="MetaModels.Relational.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="relationalMetaModel.diagram.sheet.RelationalMetaModelPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelViewProvider">
+         <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="relationalMetaModel"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="RelationalMetaModel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,3001"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="RelationalMetaModel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,3001"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5002,5001"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7001"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="relationalMetaModel.diagram.edit.parts.RelationalSchemaEditPart" id="RelationalSchema_1000"/>
+         <object class="relationalMetaModel.diagram.edit.parts.RelationalTableEditPart" id="RelationalTable_2001"/>
+         <object class="relationalMetaModel.diagram.edit.parts.RelationalForeignKeyEditPart" id="RelationalForeignKey_3001"/>
+         <context elements="RelationalSchema_1000,RelationalTable_2001,RelationalForeignKey_3001"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="relationalMetaModel.diagram.providers.RelationalMetaModelShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2001"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="relationalMetaModel">
+         <metamodelType
+               id="MetaModels.Relational.diagram.RelationalSchema_1000"
+               name="%metatype.name.RelationalSchema_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="RelationalSchema"
+               edithelper="relationalMetaModel.diagram.edit.helpers.RelationalSchemaEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="relationalMetaModel">
+         <metamodelType
+               id="MetaModels.Relational.diagram.RelationalTable_2001"
+               name="%metatype.name.RelationalTable_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="RelationalTable"
+               edithelper="relationalMetaModel.diagram.edit.helpers.RelationalTableEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="relationalMetaModel">
+         <metamodelType
+               id="MetaModels.Relational.diagram.RelationalForeignKey_3001"
+               name="%metatype.name.RelationalForeignKey_3001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="RelationalForeignKey"
+               edithelper="relationalMetaModel.diagram.edit.helpers.RelationalForeignKeyEditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="relationalMetaModel">
+         <specializationType
+               id="MetaModels.Relational.diagram.RelationalForeignKeyReferencedTable_4001"
+               name="%metatype.name.RelationalForeignKeyReferencedTable_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4001"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="MetaModels.Relational.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="MetaModels.Relational.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="MetaModels.Relational.diagram.TypeContext">
+         <elementType ref="MetaModels.Relational.diagram.RelationalSchema_1000"/>
+         <elementType ref="MetaModels.Relational.diagram.RelationalTable_2001"/>
+         <elementType ref="MetaModels.Relational.diagram.RelationalForeignKey_3001"/>
+         <elementType ref="MetaModels.Relational.diagram.RelationalForeignKeyReferencedTable_4001"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="MetaModels.Relational.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="MetaModels.Relational.diagram"
+           properties="isURIEditorInput"
+           class="relationalMetaModel.diagram.part.RelationalMetaModelUriEditorInputTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="MetaModels.Relational.diagram.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="MetaModels.Relational.diagram"
+           properties="isShortcut"
+           class="relationalMetaModel.diagram.part.RelationalMetaModelShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="MetaModels.Relational.diagram.resourceContent"/>
+			<contentExtension pattern="MetaModels.Relational.diagram.domainResourceContent"/>
+            <contentExtension pattern="MetaModels.Relational.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="MetaModels.Relational.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="MetaModels.Relational.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="relationalMetaModel.diagram.navigator.RelationalMetaModelNavigatorContentProvider" 
+            labelProvider="relationalMetaModel.diagram.navigator.RelationalMetaModelNavigatorLabelProvider"
+            icon="icons/obj16/RelationalMetaModelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="relationalmetamodel_diagram"/>
+               </and>
+               <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.Relational.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.Relational.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="MetaModels.Relational.diagram.navigatorSorter" 
+               class="relationalMetaModel.diagram.navigator.RelationalMetaModelNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="relationalmetamodel_diagram"/>
+                  </and>
+                  <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="MetaModels.Relational.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="relationalMetaModel.diagram.navigator.RelationalMetaModelDomainNavigatorContentProvider" 
+            labelProvider="relationalMetaModel.diagram.navigator.RelationalMetaModelDomainNavigatorLabelProvider"
+            icon="icons/obj16/RelationalMetaModelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="relationalmetamodel"/>
+               </and>
+               <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="MetaModels.Relational.diagram.navigatorActionProvider"
+            class="relationalMetaModel.diagram.navigator.RelationalMetaModelNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="MetaModels.Relational.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="MetaModels.Relational.diagram.navigatorLinkHelper"
+            class="relationalMetaModel.diagram.navigator.RelationalMetaModelNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="MetaModels.Relational.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="relationalMetaModel.diagram.navigator.RelationalMetaModelAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="relationalMetaModel.diagram.part.RelationalMetaModelDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="relationalMetaModel.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="relationalMetaModel.diagram.updateDiagram"
+         contextId="relationalMetaModel.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="MetaModels.Relational.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="relationalMetaModel.diagram.edit.parts.RelationalSchemaEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="MetaModels.Relational.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="relationalMetaModel.diagram.part.RelationalMetaModelDiagramEditorID"
+         defaultHandler="relationalMetaModel.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+</plugin>

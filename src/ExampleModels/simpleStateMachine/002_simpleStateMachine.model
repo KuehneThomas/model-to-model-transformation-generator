@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimpleStateMachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="simpleStateMachineMetaModel"
+    Name="DHC" InitialState="#//@States.0">
+  <States Name="DHC Off" Outgoing="#//@Transitions.0" Incoming="#//@Transitions.3 #//@Transitions.4"/>
+  <States Name="DHC Ready" Outgoing="#//@Transitions.1 #//@Transitions.3" Incoming="#//@Transitions.0 #//@Transitions.2"/>
+  <States Name="DHC Operating" Outgoing="#//@Transitions.2 #//@Transitions.4" Incoming="#//@Transitions.1"/>
+  <Transitions Name="DHC Off -> DHC Ready" Source="#//@States.0" Target="#//@States.1"/>
+  <Transitions Name="DHC Ready -> DHC Operating" Source="#//@States.1" Target="#//@States.2"/>
+  <Transitions Name="DHC Operating -> DHC Ready" Source="#//@States.2" Target="#//@States.1"/>
+  <Transitions Name="DHC Ready -> DHC Off" Source="#//@States.1" Target="#//@States.0"/>
+  <Transitions Name="DHC Operating -> DHC Off" Source="#//@States.2" Target="#//@States.0"/>
+</SimpleStateMachine>

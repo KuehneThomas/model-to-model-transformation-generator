@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="etlMetaModel" nsURI="etlMetaModel" nsPrefix="">
+  <eClassifiers xsi:type="ecore:EClass" name="MofNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofType" eSuperTypes="#//MofNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedElements" upperBound="-1"
+        eType="#//MofTypedElement" containment="true" eOpposite="#//MofTypedElement/type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofClass" eSuperTypes="#//MofType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperties" upperBound="-1"
+        eType="#//MofProperty" containment="true" eOpposite="#//MofProperty/clazz"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superclasses" upperBound="-1"
+        eType="#//MofClass" eOpposite="#//MofClass/clazz"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="clazz" upperBound="-1"
+        eType="#//MofClass" eOpposite="#//MofClass/superclasses"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofTypedElement" eSuperTypes="#//MofNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//MofType"
+        eOpposite="#//MofType/typedElements"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofMultiplicityElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofProperty" eSuperTypes="#//MofTypedElement #//MofMultiplicityElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="clazz" eType="#//MofClass"
+        eOpposite="#//MofClass/ownedProperties"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="association" eType="#//MofAssociation"
+        eOpposite="#//MofAssociation/memberEnds"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isComposite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofAssociation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="memberEnds" lowerBound="2"
+        upperBound="-1" eType="#//MofProperty" eOpposite="#//MofProperty/association"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MofPrimitiveType" eSuperTypes="#//MofType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MofBoolean" eSuperTypes="#//MofPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MofInteger" eSuperTypes="#//MofPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MofString" eSuperTypes="#//MofPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlModule" eSuperTypes="#//EolLibraryModule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mofClassesSource" upperBound="-1"
+        eType="#//MofClass" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mofAssociationsSource"
+        upperBound="-1" eType="#//MofAssociation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mofClassesTarget" upperBound="-1"
+        eType="#//MofClass" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mofAssociationsTarget"
+        upperBound="-1" eType="#//MofAssociation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pre" eType="#//ErlNamedRule"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationRules" upperBound="-1"
+        eType="#//EtlTransformationRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="post" eType="#//ErlNamedRule"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//EolOperation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErlNamedRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//EolStatementBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlTransformationRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="guardName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extendsRules" upperBound="-1"
+        eType="#//EtlTransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceParameter" lowerBound="1"
+        eType="#//EolMofClassFormalParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetParameters" lowerBound="1"
+        upperBound="-1" eType="#//EolMofClassFormalParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//EolLogicalExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//EolStatementBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstractt" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lazy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="primary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="greedy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolLibraryModule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+        eType="#//EolAnnotation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formalParameters" upperBound="-1"
+        eType="#//EolFormalParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//EolType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//EolStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//EolType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolFormalParameter" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolMofClassFormalParameter" eSuperTypes="#//EolFormalParameter">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenced" eType="#//MofClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isSequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolAnnotation" abstract="true" eSuperTypes="#//EolExecuteableAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolExecuteableAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//EolLogicalExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolType" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolAnyType" abstract="true" eSuperTypes="#//EolType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelElementType" eSuperTypes="#//EolType #//EolPrimitiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolNative" eSuperTypes="#//EolType #//EolPrimitiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolPrimitiveType" abstract="true" eSuperTypes="#//EolType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolBooleanType" eSuperTypes="#//EolPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolRealType" eSuperTypes="#//EolPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolIntegerType" eSuperTypes="#//EolRealType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolStringType" eSuperTypes="#//EolPrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolMapType" eSuperTypes="#//EolType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolCollectionType" abstract="true" eSuperTypes="#//EolType #//EolPrimitiveExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolOrderedSetType" eSuperTypes="#//EolCollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolSetType" eSuperTypes="#//EolCollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolBagType" eSuperTypes="#//EolCollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolSequenceType" eSuperTypes="#//EolCollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolExpressionOrStatementBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolLogicalExpression" eSuperTypes="#//EolExpressionOrStatementBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relationalExpression" lowerBound="1"
+        eType="#//EolRelationalExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedLogicalExpression"
+        eType="#//EolChainedLogicalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolChainedLogicalExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logicalOperator" lowerBound="1"
+        eType="#//EolLogicalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpression" lowerBound="1"
+        eType="#//EolLogicalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolLogicalOperator">
+    <eLiterals name="and"/>
+    <eLiterals name="or" value="1"/>
+    <eLiterals name="not" value="2"/>
+    <eLiterals name="implies" value="3"/>
+    <eLiterals name="xor" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolRelationalExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additiveExpression" lowerBound="1"
+        eType="#//EolAdditiveExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedRelationalExpression"
+        eType="#//EolGenericChainedRelationalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolGenericChainedRelationalExpression"
+      abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolChainedRelationalExpression" eSuperTypes="#//EolGenericChainedRelationalExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationalOperator" lowerBound="1"
+        eType="#//EolRelationalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relationalExpression" lowerBound="1"
+        eType="#//EolRelationalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolRelationalOperator">
+    <eLiterals name="equal"/>
+    <eLiterals name="assignment" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolComparingToAdditiveRelationalExpression"
+      eSuperTypes="#//EolGenericChainedRelationalExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="additiveComparisonOperator"
+        lowerBound="1" eType="#//EolAdditiveComparisonOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additiveExpression" lowerBound="1"
+        eType="#//EolAdditiveExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolAdditiveComparisonOperator">
+    <eLiterals name="notEqual"/>
+    <eLiterals name="greaterThan" value="1"/>
+    <eLiterals name="smallerThan" value="2"/>
+    <eLiterals name="greaterOrEqual" value="3"/>
+    <eLiterals name="smallerOrEqual" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolAdditiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicativeExpression"
+        lowerBound="1" eType="#//EolMultiplicativeExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedAdditiveExpression"
+        eType="#//EolChainedAdditiveExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolChainedAdditiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="additiveArithmeticalOperator"
+        lowerBound="1" eType="#//EolAdditiveArithmeticalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additiveExpression" lowerBound="1"
+        eType="#//EolAdditiveExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolAdditiveArithmeticalOperator">
+    <eLiterals name="plus"/>
+    <eLiterals name="minus" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolMultiplicativeExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unaryExpression" lowerBound="1"
+        eType="#//EolUnaryExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedMultiplicativeExpression"
+        eType="#//EolChainedMultiplicativeExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolChainedMultiplicativeExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicativeArithmeticalOperator"
+        lowerBound="1" eType="#//EolMultiplicativeArithmeticalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unaryExpression" lowerBound="1"
+        eType="#//EolUnaryExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolMultiplicativeArithmeticalOperator">
+    <eLiterals name="multiply"/>
+    <eLiterals name="divide" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolUnaryExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unaryOperatorNullable"
+        eType="#//EolUnaryOpratorNullable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="PostfixExpression" lowerBound="1"
+        eType="#//EolPostfixExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolUnaryOpratorNullable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unaryOperator" lowerBound="1"
+        eType="#//EolUnaryOprator"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EolUnaryOprator">
+    <eLiterals name="minusUnary"/>
+    <eLiterals name="not" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolPostfixExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="itemSelectorExpression"
+        lowerBound="1" eType="#//EolItemSelectorExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedFeatureCallPostfixExpression"
+        eType="#//EolChainedFeatureCallPostfixExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolChainedFeatureCallPostfixExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureCall" lowerBound="1"
+        eType="#//EolFeatureCall" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureCallAdditionalLogicalExpression"
+        eType="#//EolLogicalExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chainedFeatureCallPostfixExpression"
+        eType="#//EolChainedFeatureCallPostfixExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolItemSelectorExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primitiveExpression" lowerBound="1"
+        eType="#//EolPrimitiveExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additionalPrimitiveExpression"
+        eType="#//EolPrimitiveExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolFeatureCall" abstract="true" eSuperTypes="#//EolPrimitiveExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolSimpleFeatureCall" eSuperTypes="#//EolFeatureCall">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterList" eType="#//EolParameterList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolMofPropertyFeatureCall" eSuperTypes="#//EolFeatureCall">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedMofProperty"
+        lowerBound="1" eType="#//MofProperty"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlEquivalentMethodFeatureCall" eSuperTypes="#//EolFeatureCall"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolIsTypeOfSourceMofClassFeatureCall"
+      eSuperTypes="#//EolFeatureCall">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedMofClass" eType="#//MofClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolParameterList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpressions" lowerBound="1"
+        upperBound="-1" eType="#//EolLogicalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolNewExpression" eSuperTypes="#//EolPrimitiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instantiatedMofClass" lowerBound="1"
+        eType="#//MofClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolVariableDeclarationExpression" eSuperTypes="#//EolPrimitiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolPrimitiveExpression" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolLiteral" abstract="true" eSuperTypes="#//EolPrimitiveExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolStringLiteral" eSuperTypes="#//EolPrimitiveExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolReferenceExpression" abstract="true"
+      eSuperTypes="#//EolPrimitiveExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolFormalParameterReferenceExpression"
+      eSuperTypes="#//EolReferenceExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedFormalParameter"
+        lowerBound="1" eType="#//EolFormalParameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolVariableReferenceExpression" eSuperTypes="#//EolReferenceExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedVarableDeclaration"
+        lowerBound="1" eType="#//EolVariableDeclarationExpression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolStatementBlock" eSuperTypes="#//EolExpressionOrStatementBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//EolStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolStatement" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolAssignmentStatement" eSuperTypes="#//EolStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isSpecial" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpressionLeft"
+        eType="#//EolLogicalExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpressionRight"
+        eType="#//EolLogicalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolExpressionStatement" abstract="true"
+      eSuperTypes="#//EolStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolAssignmentExpressionStatement" eSuperTypes="#//EolExpressionStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postfixExpressionLeft"
+        eType="#//EolPostfixExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpressionRight"
+        eType="#//EolLogicalExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolLogicalExpressionStatement" eSuperTypes="#//EolExpressionStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalExpression" eType="#//EolLogicalExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EolFor" eSuperTypes="#//EolStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formalParameter" lowerBound="1"
+        eType="#//EolFormalParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iteratedSequence" lowerBound="1"
+        eType="#//EolLogicalExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statementBlock" lowerBound="1"
+        eType="#//EolStatementBlock" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

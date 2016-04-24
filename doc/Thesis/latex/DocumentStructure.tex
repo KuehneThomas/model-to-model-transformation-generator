@@ -1,0 +1,209 @@
+%--- hyphenation -----------------------------------------------------------------------------
+
+% Silbentrennung für Wörter, in denen kein Bindestrich vorkommt
+\input{thesisHyphenation}
+
+%----------------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Verzeichnisse umbenennen von "...verzeichnis"; muss hier stehen, da sonst der Name nicht geändert wird
+%\renewcommand{\contentsname}{Inhalt}
+%\renewcommand{\bibname}{Literatur}
+
+\pagenumbering{roman} % römische Seitenzahlen, bevor der eigentliche Inhalt beginnt
+
+%--- bastard title -------------------------------------------------------------------------------
+
+\ifthenelse{
+	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypMaster}
+	\OR
+	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypDiplom}
+	}
+	{
+		% %then: create a bastard title
+		% \thispagestyle{empty}
+		% \begin{center}
+		% {\vspace*{170pt}\Large\textbf{\meinTitel}}\\[30pt]
+		% by\\[15pt]
+		% {\large \meinName}
+		% \end{center}
+		% \clearpage
+	}
+	{
+	 	%else: do nothing
+	}
+
+
+%--- Title page -------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+\begin{titlepage}
+\begin{center}
+	
+	\begin{minipage}{13.5cm}		
+		\includegraphics[height=3cm]{Images/TitlePage/uni-logo}\\
+		\textsf{
+    \hspace*{2.0cm} Fakult\"at f\"ur Elektrotechnik, Informatik und Mathematik \\
+		\hspace*{2.0cm} Institut f\"ur Informatik\\
+		%\hspace*{2.0cm} Fachgebiet Softwaretechnik \\
+		\hspace*{2.0cm} Zukunftsmeile 1 \\
+		\hspace*{2.0cm} 33102 Paderborn
+		}
+	\end{minipage}\\[60pt]
+  
+  
+  \begin{doublespace}
+		{\Huge\textbf{\meinTitel}}\\[30pt]
+	\end{doublespace} 
+  
+    
+  \ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypMaster}}
+	{
+		%then:
+		{\Large \masterArbeit }\\[6pt]
+		Submitted in Partial Fulfillment of the Requirements for the\\
+		Degree of\\[6pt]
+  	{\Large \gradMaster}\\[30pt]
+	}
+	{
+	 	%else:
+	 	\ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypDiplom}}
+		{
+			%then:
+			{\Large \diplomArbeit }\\[6pt]
+	  	Submitted to the Software Engineering Research Group\\
+		  in Partial Fulfillment of the Requirements for the\\
+		  Degree of\\[6pt]
+	  	{\Large \gradDiplom}\\[30pt]
+		}
+		{
+		 	%else:
+		 	\ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypBachelor}}
+			{
+				%then:
+				{\Large \bachelorArbeit }\\[6pt]
+		  	Submitted to the Software Engineering Research Group\\
+		    in Partial Fulfillment of the Requirements for the\\
+		    Degree of\\[6pt]
+		  	{\Large \gradBachelor}\\[30pt]
+			}
+			{
+			 	%else:
+			 	\ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypSeminar}
+			 							\OR
+			 							\equal{\ausarbeitungsTyp}{\ausarbeitungsTypProSeminar}
+			 						 }
+				{
+					%then:
+					{\Large \seminarArbeit }\\[6pt]
+			  	Submitted to the Software Engineering Research Group\\
+			  	in Partial Fulfillment of the Requirements for the\\
+			  	\ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypSeminar}}
+			  	{
+			  		Seminar\\[6pt]
+			  	}
+			  	{
+			  		%else
+			  		Pro-Seminar\\[6pt]
+			  	}
+			  	{\Large \titelDesSeminars}\\[10pt]
+				}
+				{
+				 	%else: sollte nie der Falls sein
+				 	{\Large Kind of thesis unknown }\\[42pt]
+				}
+			}
+		}
+	}  
+  
+  
+  by\\
+  {\scshape\large \meinName}\\
+  \meineStrasseHausNr\\\meinePLZundOrt\\[30pt]
+  
+  Thesis Supervisor:\\
+  
+\ifthenelse{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypSeminar}\OR{\equal{\ausarbeitungsTyp}{\ausarbeitungsTypProSeminar}}}
+{
+	%then: nur Erstgutachter
+	{\large \meinErstgutachter}\\[30pt]
+}
+{
+ 	%else: Erst- und Zweitgutachter
+ 	{\large \meinErstgutachter}\\
+  and\\
+  {\large \meinZweitgutachter}\\[30pt]
+}
+  
+  %{\today} % heutiges Datum
+  {Paderborn, \meinErstellungsdatum}
+\end{center}
+\end{titlepage}
+\clearpage
+
+
+%---Erklärung----------------------------------------------------------------------------------
+
+\ifthenelse{
+	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypMaster}
+	\OR
+	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypDiplom}
+	\OR
+	\equal{\ausarbeitungsTyp}{\ausarbeitungsTypBachelor}
+	}
+{
+	%then: Erklärung einfügen
+	
+	%\clearemptydoublepage
+
+	\chapter*{Declaration}\vspace{-24pt}
+	
+	(Translation from German)\newline
+	
+	\noindent I hereby declare that I prepared this thesis entirely on my own and have not used outside sources
+	without declaration in the text. Any concepts or quotations applicable to these sources are
+	clearly attributed to them. This thesis has not been submitted in the same or substantially similar
+	version, not even in part, to any other authority for grading and has not been published elsewhere.
+
+	\section*{Original Declaration Text in German:}
+
+	\section*{Erkl\"arung}
+	
+	Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung anderer als der
+	angegebenen Quellen angefertigt habe und dass die Arbeit in gleicher oder \"ahnlicher Form
+	noch keiner anderen Pr\"ufungsbeh\"orde vorgelegen hat und von dieser als Teil einer
+	Pr\"ufungsleistung angenommen worden ist. Alle Ausf\"uhrungen, die w\"ortlich oder sinngem\"a\ss~
+	\"ubernommen worden sind, sind als solche ge\-kenn\-zeich\-net.\\[27pt]
+	
+	
+	\begin{center}
+		\begin{tabular}{l p{0.1\textwidth} r}
+		  \cline{1-1} \cline{3-3}
+		  \begin{minipage}[t]{0.4\textwidth}
+		    \centering
+		    City, Date
+			\end{minipage}
+			&
+			\begin{minipage}[t]{0.2\textwidth}
+			\end{minipage}
+			&
+			\begin{minipage}[t]{0.4\textwidth}
+			  \centering
+			  Signature
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+}
+{
+	%else: nichts tun
+}
+
+
+%---Inhaltsverzeichnis-------------------------------------------------------------------------
+%\clearemptydoublepage
+\tableofcontents
+
+\input{thesisDocumentStructure}
+
+\end{document}

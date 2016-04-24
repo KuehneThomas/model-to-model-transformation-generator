@@ -1,0 +1,34 @@
+@namespace(uri="complexStateMachineMetaModel", prefix="")
+package complexStateMachineMetaModel;
+
+class ComplexStateMachine {
+	attr String Name;
+	val State[*]#ComplexStateMachine States;
+	val Transition[*]#ComplexStateMachine Transitions;
+	ref State#InitialStateOfComplexStateMachines InitialState;
+}
+
+class Transition {
+	attr String Name;
+	ref ComplexStateMachine[1]#Transitions ComplexStateMachine;
+	
+	ref State[1]#Outgoing Source;
+	ref State[1]#Incoming Target;
+}
+
+class State {
+	attr String Name;
+	ref ComplexStateMachine[1]#States ComplexStateMachine;
+	ref ComplexStateMachine[*]#InitialState InitialStateOfComplexStateMachines;	
+	
+	ref Transition[*]#Source Outgoing;
+	ref Transition[*]#Target Incoming;
+	
+	ref CompositeState[?]#States CompositeState;
+	ref CompositeState[*]#InitialState InitialStateOfCompositeStates;	
+}
+
+class CompositeState extends State {
+	ref State[*]#CompositeState States;
+	ref State#InitialStateOfCompositeStates InitialState;
+}

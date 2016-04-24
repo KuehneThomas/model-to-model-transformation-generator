@@ -1,0 +1,36 @@
+%Mathe
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{bbm}
+\newcommand{\IN}{\mathbbm{N}}           % natürliche Zahlen
+\newcommand{\IZ}{\mathbbm{Z}}           % ganze      Zahlen
+\newcommand{\IQ}{\mathbbm{Q}}           % rationale  Zahlen
+\newcommand{\IR}{\mathbbm{R}}           % reelle     Zahlen
+\newcommand{\IC}{\mathbbm{C}}           % komplexe   Zahlen
+\newcommand{\IP}{\mathbbm{P}}           % Primzahlen
+
+\renewcommand{\epsilon}{\varepsilon}                    % schöneres Epsilon
+
+\newcommand{\set}[1]{\left\{ #1 \right\}}               % Menge
+\newcommand{\powerset}[1]{\wp\!\left(#1\right)}         % Potenzmenge
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}       % Betrag
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}      % Norm
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}   % floor
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}      % ceiling
+
+\newcommand{\signatur}[3]{#1:#2\,\rightarrow\,#3}     %Funktionen-Signatur
+
+
+%Umgebungen
+\newenvironment{bew}{\vspace{6pt}{\raggedright\textbf{Beweis: }}} {\newline\vspace{6pt}\hfill{$\square$}\vspace{6pt}\newline}
+
+\usepackage{theorem}
+%\theoremstyle{change} %vertauscht Nummer und Titel, z.B. statt "Def. 1.1" steht "1.1 Def."
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{satz}[definition]{Satz}
+\newtheorem{korollar}[definition]{Korollar}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{bsp}[definition]{Beispiel}
+{\theoremstyle{changebreak}\newtheorem{bspe}[definition]{Beispiele}} %mit neuer Zeile anfangen

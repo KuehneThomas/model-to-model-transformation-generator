@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EtlModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="etlMetaModel">
+  <mofClassesSource name="UmlPackage">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Classes" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="Associations" association="#//@mofAssociationsSource.3"/>
+  </mofClassesSource>
+  <mofClassesSource name="UmlClass">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Package" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="outgoingRelations" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="incomingRelations" association="#//@mofAssociationsSource.2"/>
+  </mofClassesSource>
+  <mofClassesSource name="UmlAssociation">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Package" association="#//@mofAssociationsSource.3"/>
+    <ownedProperties name="Source" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="Target" association="#//@mofAssociationsSource.2"/>
+  </mofClassesSource>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.1 #//@mofClassesSource.1/@ownedProperties.1"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.2 #//@mofClassesSource.2/@ownedProperties.2"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.3 #//@mofClassesSource.2/@ownedProperties.3"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.2 #//@mofClassesSource.2/@ownedProperties.1"/>
+  <mofClassesTarget name="RelationalSchema">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Tables" association="#//@mofAssociationsTarget.0"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="RelationalTable">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Schema" association="#//@mofAssociationsTarget.0"/>
+    <ownedProperties name="ForeignKeys" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="ReferencedBy" association="#//@mofAssociationsTarget.2"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="RelationalForeignKey">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="OwnedByTable" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="ReferencedTable" association="#//@mofAssociationsTarget.2"/>
+  </mofClassesTarget>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.0/@ownedProperties.1 #//@mofClassesTarget.1/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.2 #//@mofClassesTarget.2/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.3 #//@mofClassesTarget.2/@ownedProperties.2"/>
+  <transformationRules name="UmlPackage2RelationalSchema">
+    <sourceParameter name="umlPackage" referenced="#//@mofClassesSource.0"/>
+    <targetParameters name="relationalSchema" referenced="#//@mofClassesTarget.0"/>
+    <body>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.0/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.0/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.0/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.0/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+    </body>
+  </transformationRules>
+  <transformationRules name="UmlClass2RelationalTable">
+    <sourceParameter name="umlClass" referenced="#//@mofClassesSource.1"/>
+    <targetParameters name="relationalTable" referenced="#//@mofClassesTarget.1"/>
+    <body>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.1/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.1/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.1/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.1/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.1/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.1/@ownedProperties.1"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.1/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.1/@ownedProperties.1"/>
+                      <chainedFeatureCallPostfixExpression>
+                        <featureCall xsi:type="EtlEquivalentMethodFeatureCall"/>
+                      </chainedFeatureCallPostfixExpression>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+    </body>
+  </transformationRules>
+  <transformationRules name="UmlAssociation2RelationalForeignKey">
+    <sourceParameter name="umlAssociation" referenced="#//@mofClassesSource.2"/>
+    <targetParameters name="relationalForeignKey" referenced="#//@mofClassesTarget.2"/>
+    <body>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.2/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.2/@ownedProperties.0"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.2/@ownedProperties.1"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.2/@ownedProperties.2"/>
+                      <chainedFeatureCallPostfixExpression>
+                        <featureCall xsi:type="EtlEquivalentMethodFeatureCall"/>
+                      </chainedFeatureCallPostfixExpression>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+      <statements xsi:type="EolAssignmentStatement">
+        <logicalExpressionLeft>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@targetParameters.0"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesTarget.2/@ownedProperties.2"/>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionLeft>
+        <logicalExpressionRight>
+          <relationalExpression>
+            <additiveExpression>
+              <multiplicativeExpression>
+                <unaryExpression>
+                  <PostfixExpression>
+                    <itemSelectorExpression>
+                      <primitiveExpression xsi:type="EolFormalParameterReferenceExpression"
+                          referencedFormalParameter="#//@transformationRules.2/@sourceParameter"/>
+                    </itemSelectorExpression>
+                    <chainedFeatureCallPostfixExpression>
+                      <featureCall xsi:type="EolMofPropertyFeatureCall" referencedMofProperty="#//@mofClassesSource.2/@ownedProperties.3"/>
+                      <chainedFeatureCallPostfixExpression>
+                        <featureCall xsi:type="EtlEquivalentMethodFeatureCall"/>
+                      </chainedFeatureCallPostfixExpression>
+                    </chainedFeatureCallPostfixExpression>
+                  </PostfixExpression>
+                </unaryExpression>
+              </multiplicativeExpression>
+            </additiveExpression>
+          </relationalExpression>
+        </logicalExpressionRight>
+      </statements>
+    </body>
+  </transformationRules>
+</EtlModule>

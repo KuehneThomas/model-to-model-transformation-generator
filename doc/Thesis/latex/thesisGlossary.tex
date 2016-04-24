@@ -1,0 +1,594 @@
+%--- glossary -----------------------------------------------------------------------------
+
+\newglossary[slg]{SoftwareEngineering}{syi}{sbl}{Software Engineering}
+\newglossary[flg]{Algorithms}{fyi}{fyg}{Meta-Heuristic Optimization Algorithms}
+\newglossary[hlg]{EvolutionaryAlgorithms}{hyi}{hyg}{Evolutionary Algorithms}
+\newglossary[ilg]{SwarmIntelligentAlgorithms}{iyi}{iyg}{Swarm-Intelligent Algorithms}
+\makeglossaries	
+
+%--------------------------------------------------------------------------- Software Engineering 
+
+\newglossaryentry{SoftwareEngineering}{
+	type=SoftwareEngineering, 
+	name={software engineering},
+	description={Engineering discipline with the focus on creating software in a systematic manner}
+}
+
+\newglossaryentry{MetaMetaModel}{
+	type=SoftwareEngineering,
+	name={meta-meta-model},
+	description={This term is used to describe the \gls{MetaModel} of a \gls{MetaModel} on meta level "M3"}
+}
+
+\newglossaryentry{MetaModel}{
+	type=SoftwareEngineering,
+	name={meta-model},
+	description={Defines the template to which a \gls{Model} must conform when being an instance of a \gls{MetaModel} on meta level "M2"}
+}
+
+	\newglossaryentry{Class}{ % TWO CONTEXTS - simple example and mof!
+		type=SoftwareEngineering,
+		parent=MetaModel,
+		name={class},
+		plural={classes},
+		description={Is a template for an \gls{Object} which can have \glspl{Property} and \glspl{Association} to other \glspl{Class}}
+	}
+	
+	\newglossaryentry{Property}{
+		type=SoftwareEngineering,
+		parent=MetaModel,
+		name={property},
+		plural={properties},
+		description={Is an attribute of a \gls{Class} which has a name and a type. When a \gls{Class} is instantiated to an \gls{Object} then a value can be assigned of the defined type}
+	}
+
+	\newglossaryentry{ReferenceProperty}{
+		type=SoftwareEngineering,
+		parent=MetaModel,
+		name={reference property},
+		plural={reference properties},
+		description={A \gls{Property} which type is another \gls{Class}. Therefore is refers to other \gls{Object}}
+	}
+
+	\newglossaryentry{Association}{
+		type=SoftwareEngineering,
+		parent=MetaModel,
+		name={association},
+		description={Defines a relation between two or more \glspl{Class}}
+	}			
+
+	\newglossaryentry{Model}{
+		type=SoftwareEngineering,
+		parent=MetaModel,
+		name={model},
+		description={Is an instance of a \gls{MetaModel} on meta level "M1"}
+	}
+		\newglossaryentry{Object}{
+			type=SoftwareEngineering,
+			parent=Model,
+			name={object},
+			description={Is an instance of a \gls{Class}.}
+		}
+
+\newglossaryentry{ModelingLanguage}{
+	type=SoftwareEngineering,
+	name={modeling language},
+	description={A language to describe structures and/or behavior. It can have a graphical or textual \gls{ConcreteSyntax}}
+}
+
+	\newglossaryentry{AbstractSyntax}{
+		type=SoftwareEngineering,
+		parent=ModelingLanguage,
+		name={abstract syntax},
+		description={A representation-independent language which is typically used to execute an instance written in \gls{ConcreteSyntax}.
+					It has a simplified structure compared to the \gls{ConcreteSyntax} as it has not to validate the structure (again) 
+					and there is usually no need to translate it back into \gls{ConcreteSyntax}. 
+					Creating it is a difficult task that is performed manually.}
+	}
+	
+		\newglossaryentry{AbstractSyntaxTree}{
+			type=SoftwareEngineering,
+			parent=AbstractSyntax,
+			first={abstract syntax tree (AST)},
+			name={AST},
+			description={The \gls{AbstractSyntax} results often in a tree representation e.g. for expressions like "1 + 2" the root node may be the "+" whereas "1" and "2" are the child nodes}
+		}
+		\newglossaryentry{AbstractSyntaxGraph}{
+			type=SoftwareEngineering,
+			parent=AbstractSyntax,
+			first={abstract syntax graph (ASG)},
+			name={ASG},
+			description={An \gls{AbstractSyntaxTree} can be extended to a graph by e.g. adding edges from usages of variables to the definition thereby providing the foundation to ensure a valid program}
+		}		
+
+	\newglossaryentry{ConcreteSyntax}{
+		type=SoftwareEngineering,
+		parent=ModelingLanguage,
+		name={concrete syntax},
+		description={Is a visually enhanced representation which may be textual or graphical that is optimized for the purpose of a specific language}
+	}	
+
+	\newglossaryentry{MetaObjectFacility}{
+		type=SoftwareEngineering,
+		parent=ModelingLanguage,
+		first={Meta Object Facility (MOF)},
+		name={MOF},
+		description={A self-defining language of the well known Object-Management-Group. It contains simple elements like \glspl{Class}, \glspl{Property} and \glspl{Association}}
+	}
+	
+		\newglossaryentry{UnifiedModelingLanguage}{
+			type=SoftwareEngineering,
+			parent=MetaObjectFacility,
+			first={Unified Modeling Language (UML)},
+			name={UML},
+			description={A set of languages based on the \gls{MetaObjectFacility}}
+		}
+
+		\newglossaryentry{ClassDiagram}{
+			type=SoftwareEngineering,
+			parent=MetaObjectFacility,
+			name={class diagram},
+			description={A language designed to model structures which is part of the \gls{UnifiedModelingLanguage}. 
+						Basically it contains the same elements as the \gls{MetaObjectFacility} like \glspl{Class}, \glspl{Property} and \glspl{Association} but also much more sophisticated concepts}
+		}
+			
+		\newglossaryentry{ObjectConstraintLanguage}{
+			type=SoftwareEngineering,
+			parent=ModelingLanguage,
+			first={Object Constraint Language (OCL)},
+			name={OCL},
+			description={Is an expression language to describe e.g. invariants of \glspl{Class} or to define calculated \glspl{Property} based on other elements of a \gls{Model}. 
+						It is also used to for \glspl{ModelToModelTransformation}}
+		}
+		
+		\newglossaryentry{StateMachine}{
+			type=SoftwareEngineering,
+			parent=MetaObjectFacility,
+			name={state machine},
+			description={A language designed to model behavior, i.e. of a software system, which is part of the \gls{UnifiedModelingLanguage}. The design is based on a finite automaton. Fundamental elements are states which are connected by transitions.}
+		}		
+
+		\newglossaryentry{EclipseModelingFramework}{
+			type=SoftwareEngineering,
+			parent=MetaObjectFacility,
+			first={Eclipse Modeling Framework (EMF)},
+			name={EMF},
+			description={A framework for a \gls{MetaObjectFacility} like language}
+		}		
+	
+	\newglossaryentry{DomainSpecificLanguage}{
+		type=SoftwareEngineering,
+		parent=ModelingLanguage,
+		first={domain specific language (DSL)},
+		firstplural={domain specific languages (DSL)},
+		name={DSL},
+		description={A language that reflects concepts of a specific domain. Typically used to provide language which is easily understood by domain experts and not only software engineers}
+	}
+	
+	\newglossaryentry{RelationalSchema}{
+		type=SoftwareEngineering,
+		parent=ModelingLanguage,
+		name={relational schema},
+		plural={relational schemata},
+		description={Describes a database schema which basically consists of tables that are related through foreign-keys}
+	}
+
+\newglossaryentry{ModelToModelTransformation}{
+	type=SoftwareEngineering,
+	name={model-to-model transformation},
+	description={Specifies the conversion of one or more input \glspl{Model} into one or more output \glspl{Model} usually written in a \gls{TransformationLanguage}}
+}
+
+	\newglossaryentry{Endogenous}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={endogenous},
+		description={A \gls{ModelToModelTransformation} where the in- and output \glspl{Model} are of the same \gls{MetaModel}}
+	}
+	
+	\newglossaryentry{Exogenous}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={exogenous},
+		description={A \gls{ModelToModelTransformation} where the in- and output \glspl{Model} are of different \glspl{MetaModel}}
+	}
+
+	\newglossaryentry{ModelToTextTransformation}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={model-to-text transformation},
+		description={A \gls{ModelToModelTransformation} where the input is a \glspl{Model} and the output is plain text}
+	}
+
+	\newglossaryentry{TransformationLanguage}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={transformation language},
+		description={A \gls{DomainSpecificLanguage} to specify \glspl{ModelToModelTransformation}}
+	}
+	
+		\newglossaryentry{AtlasTransformationLanguage}{
+			type=SoftwareEngineering,
+			parent=TransformationLanguage,
+			first={ATLAS Transformation Language (ETL)},
+			name={ATL},
+			description={An \gls{TransformationLanguage} developed by ATLAS INRIA and LINA}
+		}
+	
+		\newglossaryentry{EpsilonTransformationLanguage}{
+			type=SoftwareEngineering,
+			parent=TransformationLanguage,
+			first={Epsilon Transformation Language (ETL)},
+			name={ETL},
+			description={An \gls{TransformationLanguage} of the Eclipse Foundation with a focus on \gls{Exogenous} transformations}
+		}
+		
+		\newglossaryentry{EpsilonWizardLanguage}{
+			type=SoftwareEngineering,
+			parent=TransformationLanguage,
+			first={Epsilon Wizard Language (EWL)},
+			name={EWL},
+			description={An \gls{Endogenous} \gls{TransformationLanguage} of the Eclipse Foundation}
+		}
+		
+		\newglossaryentry{EpsilonGenerationLanguage}{
+			type=SoftwareEngineering,
+			parent=TransformationLanguage,
+			first={Epsilon Generation Language (EGL)},
+			name={EGL},
+			description={An \gls{Exogenous} \gls{TransformationLanguage} dedicated for \glspl{ModelToTextTransformation} of the Eclipse Foundation}
+		}		
+
+	\newglossaryentry{TransformationRule}{ %sometimes used as a defined word w/o spaces => not referred from there!
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={transformation rule},
+		description={Typically a \glspl{ModelToModelTransformation} consists of rules where each rule defines the mapping of a certain substructure e.g. some \glspl{Class} of the whole \gls{MetaModel}}
+	}
+	
+	\newglossaryentry{TransformationExecuter}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		name={transformation executer},
+		description={Executes instances of a \gls{TransformationLanguage} on the given input \glspl{Model}. Outputs one ore more \glspl{Model} and depending on the implementation also \glspl{Trace}}
+	}
+	
+		\newglossaryentry{Trace}{
+			type=SoftwareEngineering,
+			parent=TransformationExecuter,
+			name={trace},
+			description={Are like a log of an executed transformation and typically contains the identified relations on the \gls{Model} level. 
+						Can be used to analyze a \gls{ModelToModelTransformation} which specifies relations on the \glspl{MetaModel} level}
+		}
+	
+	\newglossaryentry{ModelTransformationByExample}{
+		type=SoftwareEngineering,
+		parent=ModelToModelTransformation,
+		first={model transformation by example (MTBE)},
+		name={MTBE},
+		description={A technique that aims to create \glspl{ModelToModelTransformation} automatically using concrete example \glspl{Model} as a guideline for the algorithm.
+					In a simple scenario there has one input- and a semantically identical output \gls{Model} to be defined}
+	}
+	
+		\newglossaryentry{TransformationGenerator}{
+			type=SoftwareEngineering,
+			parent=ModelTransformationByExample,
+			name={transformation generator},
+			description={Creates a \glspl{ModelToModelTransformation}}
+		}		
+
+\newglossaryentry{ModelDrivenDevelopment}{
+	type=SoftwareEngineering,
+	first={model driven development (MDD)},
+	name={MDD},
+	description={Creates executable programs based on models. 
+				Typically there is one intermediate model the so called \gls{PlatformSpecificModel} that brides the gap between the \gls{PlatformIndependentModel} and the program}
+}
+	\newglossaryentry{PlatformIndependentModel}{
+		type=SoftwareEngineering,
+		parent=ModelDrivenDevelopment,
+		first={platform-independent model (PIM)},
+		name={PIM},
+		description={\Glspl{Model} that are used for analytical purposes and are not tied to a specific platform, e.g. the \gls{UnifiedModelingLanguage} \gls{ClassDiagram}}
+	}
+	
+	\newglossaryentry{PlatformSpecificModel}{
+		type=SoftwareEngineering,
+		parent=ModelDrivenDevelopment,
+		first={platform-specific model (PSM)},
+		name={PSM},
+		description={\Glspl{Model} that are close to a platform and may be easily translated into source code to be executed, e.g. a \gls{RelationalSchema}}
+	}	
+
+\newglossaryentry{Grammar}{
+	type=SoftwareEngineering,
+	name={grammar},
+	description={A set of \glspl{ProductionRule} that allows the definition of a textual language. It is typically used by a compiler to parse an input document}
+}
+
+	\newglossaryentry{ProductionRule}{
+		type=SoftwareEngineering,
+		parent=Grammar,
+		name={production rules},
+		plural={production rules},
+		description={Defines a symbol substitution that may be recursive consisting of nonterminal and terminal symbols}
+	}
+
+%--------------------------------------------------------------------------- Algorithms 
+
+\newglossaryentry{Encoding}{
+	type=Algorithms,
+	name={encoding},
+	description={Internal representation of a \gls{CandidateSolution} that is used by the Operators. Defines the \gls{SearchSpace}}
+}		
+\newglossaryentry{CandidateSolution}{
+	type=Algorithms,
+	name={candidate solution},
+	description={Member of the set of possible solutions in the \gls{SearchSpace}. The representation is based on a problem specific \gls{Encoding} and the fitness is rated by the \gls{FitnessFunction}}
+}
+\newglossaryentry{SearchSpace}{
+	type=Algorithms,
+	name={search space},
+	description={Set of all possible solutions defined by the \gls{Encoding}}
+}
+	\newglossaryentry{LocalSearch}{ %not used??
+		type=Algorithms,
+		parent=SearchSpace,
+		name={local search},
+		description={A search strategy which exploits the neighborhood of a given \gls{CandidateSolution}}
+	}
+	\newglossaryentry{DistantSearch}{
+		type=Algorithms,
+		parent=SearchSpace,
+		name={distant search},
+		description={Is trying to find a solution in the \gls{SearchSpace} outside the current neighborhood. Usually more unpredictable, irregular and therefore more challenging than \gls{LocalSearch}}
+	}		
+	
+\newglossaryentry{FitnessFunction}{
+	type=Algorithms,
+	name={fitness function},
+	description={Evaluates the performance of a \gls{CandidateSolution} with a numerical score}
+}
+	\newglossaryentry{GlobalOptimum}{
+		type=Algorithms,
+		parent=FitnessFunction,
+		name={global optimum},
+		description={Best value of the \gls{FitnessFunction} within the \gls{SearchSpace}}
+	}
+	\newglossaryentry{LocalOptimum}{
+		type=Algorithms,
+		parent=FitnessFunction,
+		name={local optimum},
+		description={Best value of the \gls{FitnessFunction} within its local neighborhood defined by the \gls{Operator}}
+	}
+
+\newglossaryentry{Operator}{
+	type=Algorithms,
+	name={operator},
+	description={Changes a \gls{CandidateSolution} thereby moving through the \gls{SearchSpace}}
+}
+
+	
+%--------------------------------------------------------------------------- Evolutionary Algorithms 
+	
+\newglossaryentry{EvolutionaryAlgorithm}{
+	type=EvolutionaryAlgorithms,
+	first={evolutionary algorithm (EA)},
+	firstplural={evolutionary algorithms (EA)},
+	name={EA},
+	plural={EAs},
+	description={A meta-heuristic optimization algorithm inspired by biological evolution}
+}
+	\newglossaryentry{EvolutionaryStrategy}{
+		type=EvolutionaryAlgorithms,
+		parent=EvolutionaryAlgorithm,
+		first={evolutionary strategy (ES) algorithm},
+		firstplural={evolutionary strategy (ES) algorithms},
+		name={ES algorithm},
+		plural={ES algorithms},
+		description={An \glspl{EvolutionaryAlgorithm} that uses only \gls{Mutation} as an \gls{GeneticOperator} and \glspl{Genotype}. Is typically based on floating-point arrays}
+	}	
+	\newglossaryentry{GeneticAlgorithm}{
+		type=EvolutionaryAlgorithms,
+		parent=EvolutionaryAlgorithm,
+		first={genetic algorithm (GA)},
+		firstplural={genetic algorithms (GA)},
+		name={GA},
+		plural={GAs},
+		description={Most common form of \glspl{EvolutionaryAlgorithm} usually used to solve optimization problems. Is using \gls{Mutation} and \gls{Crossover} based on discrete \glspl{Genotype} (i.e. binary strings)}
+	}
+	\newglossaryentry{GeneticProgramming}{
+		type=EvolutionaryAlgorithms,
+		parent=EvolutionaryAlgorithm,
+		first={genetic programming (GP) algorithm},
+		firstplural={genetic programming (GP) algorithms},
+		name={GP algorithm},
+		plural={GP algorithms},
+		description={An \gls{EvolutionaryAlgorithm} creating computer programs solving a computational problem. Is based on tree-representation of programs as the \gls{Genotype} which is usually the \gls{AbstractSyntaxTree}}
+	}	
+
+\newglossaryentry{FitnessLandscape}{
+	type=EvolutionaryAlgorithms,
+	name={fitness landscape},
+	description={A plot of all \gls{FitnessFunction} values associated to all \glspl{Genotype} spanning the whole \gls{SearchSpace}. The neighborhood is defined by \glspl{Mutation}.}
+}
+
+\newglossaryentry{FitnessGraph}{ % VS SEARCH SPACE !??
+	type=EvolutionaryAlgorithms,
+	name={fitness graph},
+	description={Visualizes the fitness of each \gls{Generation} determined by the \gls{FitnessFunction}. As the fitness is defined on \glspl{Individual} an aggregation function like the average has to be used}
+}
+
+\newglossaryentry{Population}{
+	type=EvolutionaryAlgorithms,
+	name={population},
+	description={Is a set of \glspl{Individual} and has a specific \gls{Generation}. Among all \glspl{Individual} the \gls{GeneticDiversity} is being defined}
+}
+	\newglossaryentry{Individual}{ % TODO genome is always mentioned in foundations, then in Algo Design individual
+		type=EvolutionaryAlgorithms,
+		parent=Population,
+		name={individual},
+		description={A \gls{CandidateSolution} in the \gls{SearchSpace} belonging to a \gls{Population}. Represented by a \gls{Phenotype} or a \gls{Genotype} depending on the context}
+	}
+		\newglossaryentry{Genotype}{
+			type=EvolutionaryAlgorithms,
+			parent=Individual,
+			name={genotype},
+			description={Is a genetic representation of the \gls{Phenotype} whereas the smallest unit is a \gls{Gene}. Serves as a foundation for \glspl{GeneticOperator}}
+		}
+		\newglossaryentry{Gene}{
+			type=EvolutionaryAlgorithms,
+			parent=Individual,
+			name={gene},
+			description={Is the smallest unit within a \gls{Genotype}}
+		}		
+		\newglossaryentry{Phenotype}{
+			type=EvolutionaryAlgorithms,
+			parent=Individual,
+			name={phenotype},
+			description={Observed representation of an \gls{Individual} that is encoded in the \gls{Genotype}}
+		}			
+	\newglossaryentry{Generation}{ 
+		type=EvolutionaryAlgorithms,
+		parent=Population,
+		name={generation},
+		description={A \gls{Population} has a defined \gls{Generation}. The \gls{ReplacementStrategy} defines how the next \gls{Generation} of a \gls{Population} is being assembled}
+	}
+	\newglossaryentry{GeneticDiversity}{ 
+		type=EvolutionaryAlgorithms,
+		parent=Population,
+		name={genetic diversity},
+		plural={genetic diversities},
+		description={Is a measurement for \glspl{Population} in order to quantify the different variations within the \glspl{Genotype} of the existing \glspl{Individual} A high \gls{GeneticDiversity} usually ensures the adaptability of a \gls{Population} in a changing environment}
+	}
+	
+\newglossaryentry{SelectionStrategy}{
+	type=EvolutionaryAlgorithms,
+	name={selection strategy},
+	plural={selection strategies},
+	description={Mechanism that defines which \glspl{Individual} are chosen to breed new ones for the next \gls{Generation} based on their fitness. Those are only candidates as the composition of the next \gls{Generation} is defined by the \gls{ReplacementStrategy}}
+}
+	\newglossaryentry{RouletteWheelSelection}{
+		type=EvolutionaryAlgorithms,
+		parent=SelectionStrategy,
+		name={roulette wheel selection},
+		description={The probability for an \gls{Individual} to be chosen is the proportion of its fitness to the sum of all fitness values}
+	}
+	\newglossaryentry{TournamentSelection}{
+		type=EvolutionaryAlgorithms,
+		parent=SelectionStrategy,
+		name={tournament selection},
+		description={Creates subsets of the whole \gls{Population} and choses the best one. The size of the subset defines the selection pressure, i.e. a large subset reduces the chance for \glspl{Individual} with bad fitness to be chosen}
+	}
+	
+\newglossaryentry{GeneticOperator}{
+	type=EvolutionaryAlgorithms,
+	name={genetic operator},
+	description={Is used to variate the \gls{Genotype} of existing \glspl{Individual} through \glspl{Crossover} and \glspl{Mutation}. Variation is necessary in order to maintain the \gls{GeneticDiversity} within a \gls{Population}}
+}	
+
+	\newglossaryentry{Crossover}{
+		type=EvolutionaryAlgorithms,
+		parent=GeneticOperator,
+		name={crossover},
+		description={Exploratory, binary \gls{GeneticOperator} combining parts of two existing solutions to a new one. Is applied to the \gls{Genotype} of two \glspl{Individual} with a certain probability. Performs \gls{DistantSearch} as the result is between the parent \glspl{Individual} in the \gls{SearchSpace}}
+	}
+
+	\newglossaryentry{Mutation}{
+		type=EvolutionaryAlgorithms,
+		parent=GeneticOperator,
+		name={mutation},
+		description={Unary \gls{GeneticOperator} creating variations of existing solutions. Is applied to the \gls{Genotype} of a copied parent Individual that has been chosen via a \gls{SelectionStrategy}. Changes each \gls{Gene} with a certain probability. Is a \gls{LocalSearch} mechanism and therefore requires \gls{StrongCausality}}
+	}
+		\newglossaryentry{StrongCausality}{
+			type=EvolutionaryAlgorithms,
+			parent=Mutation,
+			name={strong causality},
+			description={Small cause results in a small effect. Desired for \glspl{Mutation}. A small change in a \gls{Genotype} results in a a small effect in the \gls{Phenotype}}
+		}
+		\newglossaryentry{WeakCausality}{
+			type=EvolutionaryAlgorithms,
+			parent=Mutation,
+			name={weak causality},
+			description={Small cause resulting in a big effect. See \gls{StongCausality}}
+		}		
+
+\newglossaryentry{ReplacementStrategy}{
+	type=EvolutionaryAlgorithms,
+	name={replacement strategy},
+	plural={replacement strategies},
+	description={Also called child insertion method. Is performed in order to limit the size of a \gls{Population}. A new \gls{Generation} may be either a completely new one or some \glspl{Individual} may be kept to avoid loosing the best ones
+	%Common strategies are \gls{GenerationalReplacement}, \gls{Elitism} and \gls{GenerationalRollover}
+	}
+}
+	% \newglossaryentry{GenerationalRollover}{
+		% type=EvolutionaryAlgorithms,
+		% parent=ReplacementStrategy,
+		% name={generation rollover},
+		% description={A \gls{ReplacementStrategy} that exchanges the worst \glspl{Individual} with an offspring}
+	% }
+	\newglossaryentry{Elitism}{
+		type=EvolutionaryAlgorithms,
+		parent=ReplacementStrategy,
+		name={elitism},
+		description={A \gls{ReplacementStrategy} which maintains a certain number of best \glspl{Individual} when moving towards the next \gls{Generation}. Ensures that the overall fitness never decreases}
+	}	
+	% \newglossaryentry{GenerationalReplacement}{
+		% type=EvolutionaryAlgorithms,
+		% parent=ReplacementStrategy,
+		% name={generational replacement},
+		% description={A \gls{ReplacementStrategy} in which the previous \gls{Generation} is replaced with a completely new one created with \glspl{GeneticOperator}}
+	% }	
+
+%--------------------------------------------------------------------------- Swarm-intelligent Algorithms 
+	
+\newglossaryentry{SwarmIntelligentAlgorithm}{
+	type=SwarmIntelligentAlgorithms,
+	first={swarm-intelligent algorithm (SI algorithm)},
+	firstplural={swarm-intelligent algorithms (SI algorithms)},
+	name={SI algorithm},
+	description={A meta-heuristic optimization algorithm inspired by the behavior of natural swarms}
+}
+
+	\newglossaryentry{AntColonyOptimization}{
+		type=SwarmIntelligentAlgorithms,
+		parent=SwarmIntelligentAlgorithm,
+		first={ant colony optimization (ACO)},
+		name={ACO},
+		description={Inspired by the behavior of \glspl{Ant} when looking for \glspl{FoodSource}. Initially it has been used to solve the Traveling Salesman Problem (TSP) but is also applicable to scheduling or assignment problems or similar graph based problems}
+	}
+		\newglossaryentry{PheromoneTrail}{
+			type=SwarmIntelligentAlgorithms,
+			parent=AntColonyOptimization,
+			name={pheromone trail},
+			description={Created by \glspl{Ant} when looking for a \gls{FoodSource}. Is intensified with each usage and evaporates over time. Thereby directs the algorithm towards the solution}
+		}
+		\newglossaryentry{Ant}{
+			type=SwarmIntelligentAlgorithms,
+			parent=AntColonyOptimization,
+			name={ant},
+			description={Exploratory unit that navigates through the \gls{SearchSpace} guided by the \glspl{PheromoneTrail} looking for \gls{FoodSource}}
+		}
+		\newglossaryentry{FoodSource}{
+			type=SwarmIntelligentAlgorithms,
+			parent=AntColonyOptimization,
+			name={food source},
+			description={Represents the target to be reached with an optimal path}
+		}		
+
+	\newglossaryentry{ParticleSwarmOptimization}{
+		type=SwarmIntelligentAlgorithms,
+		parent=SwarmIntelligentAlgorithm,
+		first={particle swarm optimization (PSO)},
+		name={PSO},
+		description={Mimics the behavior of a bird flocks or fish schools. A \gls{CandidateSolution} is a \gls{Particle} in an n-dimensional \gls{SearchSpace}}
+	}
+		\newglossaryentry{Particle}{
+			type=SwarmIntelligentAlgorithms,
+			parent=ParticleSwarmOptimization,
+			name={particle},
+			description={\Gls{CandidateSolution} in an n-dimensional \gls{SearchSpace} with a position, velocity and direction}
+		}		
+
+	
+%----------------------------------------------------------------------------------------------

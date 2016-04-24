@@ -1,0 +1,59 @@
+@Spec {
+	metamodel "etlMetaModel" {
+		nsUri: "etlMetaModel"
+	}
+} 
+
+etlMetaModel {
+	EtlModule "001_umlclass2relational" { 
+		mofClassesSource: MofClass "UmlPackage" {
+				name: "UmlPackage"
+				ownedProperties: MofProperty "UmlPackage.Name" { name: "Name" },
+								 MofProperty "UmlPackage.Classes" { name: "Classes" association: MofAssociation "UmlPackage2UmlClass" },
+								 MofProperty "UmlPackage.Associations" { name: "Associations" association: MofAssociation "UmlPackage2UmlAssociation" }
+			},
+			MofClass "UmlClass" {
+				name: "UmlClass"
+				ownedProperties: MofProperty "UmlClass.Name" { name: "Name" }, 
+								 MofProperty "UmlClass.Package" { name: "Package" association: MofAssociation "UmlPackage2UmlClass" }, 
+								 MofProperty "UmlClass.OutgoingRelations" { name: "outgoingRelations" association: MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" },
+								 MofProperty "UmlClass.IncomingRelations" { name: "incomingRelations" association: MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" }
+			},
+			MofClass "UmlAssociation" {
+			 	name: "UmlAssociation" 
+				ownedProperties: MofProperty "UmlAssociation.Name" { name: "Name" }, 
+								 MofProperty "UmlAssociation.Package" { name: "Package" association: MofAssociation "UmlPackage2UmlAssociation" }, 
+								 MofProperty "UmlAssociation.Source" { name: "Source" association: MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" }, 
+								 MofProperty "UmlAssociation.Target" { name: "Target" association: MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" }
+			}
+		mofAssociationsSource: MofAssociation "UmlPackage2UmlClass" {},
+							   MofAssociation "UmlAssociationSource2UmlClassOutgoingRelations" {}, 
+							   MofAssociation "UmlAssociationTarget2UmlClassIncomingRelations" {},
+							   MofAssociation "UmlPackage2UmlAssociation" {}
+		
+		mofClassesTarget: MofClass "RelationalSchema" {
+				name: "RelationalSchema"
+				ownedProperties: MofProperty "RelationalSchema.Name" { name: "Name" },
+								 MofProperty "RelationalSchema.Tables" { name: "Tables" association: MofAssociation "RelationalSchema2RelationalTable" }
+			},
+			MofClass "RelationalTable" {
+				name: "RelationalTable" 
+				ownedProperties: MofProperty "RelationalTable.Name" { name: "Name" }, 
+								 MofProperty "RelationalTable.Schema" { name: "Schema" association: MofAssociation "RelationalSchema2RelationalTable" },
+								 MofProperty "RelationalTable.ForeignKeys" { name: "ForeignKeys" association:  MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" },
+								 MofProperty "RelationalTable.ReferencedBy" { name: "ReferencedBy" association:  MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" }
+			},
+			MofClass "RelationalForeignKey" {
+				name: "RelationalForeignKey"
+				ownedProperties: MofProperty "RelationalForeignKey.Name" { name: "Name" }, 
+								 MofProperty "RelationalForeignKey.OwnedByTable" { name: "OwnedByTable" association:  MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" }, 
+								 MofProperty "RelationalForeignKey.ReferencedTable" { name: "ReferencedTable" association:  MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" }
+			}
+		mofAssociationsTarget: MofAssociation "RelationalSchema2RelationalTable" {},
+							   MofAssociation "RelationalTableForeignKeys2RelationalForeignKeyOwnedByTable" {},
+							   MofAssociation "RelationalTableReferencedBy2RelationalForeignKeyReferencedTable" {}
+		transformationRules: null
+	}
+}
+
+ 

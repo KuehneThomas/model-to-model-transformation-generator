@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelationalSchema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="relationalMetaModel"
+    Name="Vehicles">
+  <Tables Name="Car">
+    <ForeignKeys Name="Car2Engine" ReferencedTable="#//@Tables.1"/>
+  </Tables>
+  <Tables Name="Engine" ReferencedBy="#//@Tables.0/@ForeignKeys.0"/>
+</RelationalSchema>

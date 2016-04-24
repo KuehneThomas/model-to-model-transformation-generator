@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TransformationGenerator.Tests</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/resources/etl2text.egl</name>
+			<type>1</type>
+			<location>C:/TFS/ThomasMasterThesis/EclipseWorkspaceEpsilon/Transformations/etl2text/etl2text.egl</location>
+		</link>
+		<link>
+			<name>src/resources/etlMetaModel.ecore</name>
+			<type>1</type>
+			<location>C:/TFS/ThomasMasterThesis/EclipseWorkspaceEpsilon/MetaModels.Etl/etlMetaModel.ecore</location>
+		</link>
+	</linkedResources>
+</projectDescription>

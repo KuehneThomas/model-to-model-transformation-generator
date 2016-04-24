@@ -1,0 +1,202 @@
+%%%%%%%%%%%%% CODE
+
+\lstset{escapeinside={/*@}{@*/}}
+\definecolor{codebackground}{rgb}{0.95,0.95,0.95}
+\lstset{backgroundcolor=\color{codebackground}}
+
+\lstset{
+  captionpos=b,
+  numberstyle=\tiny,
+  basicstyle=\ttfamily\footnotesize,
+  columns=flexible,
+  tabsize=2,
+  numbers=left,
+  nolol=true,
+  numberstyle=\tiny,numbers=left,
+  stringstyle=\color{sh_string},
+  keywordstyle = \color{sh_keyword}\bfseries,
+  commentstyle=\color{sh_comment}\itshape,
+}
+
+\definecolor{sh_comment}{rgb}{0.12, 0.38, 0.18 } %adjusted, in Eclipse: {0.25, 0.42, 0.30 } = #3F6A4D
+\definecolor{sh_keyword}{rgb}{0.37, 0.08, 0.25}  % #5F1441
+\definecolor{sh_string}{rgb}{0.06, 0.10, 0.98} % #101AF9
+
+\def\lstsmallmath{\leavevmode\ifmmode \scriptstyle \else  \fi}
+\def\lstsmallmathend{\leavevmode\ifmmode  \else  \fi}
+
+\lstdefinelanguage{ATL}{
+  morekeywords={true,false,
+   Bag,Set,OrderedSet,Sequence,Tuple,Integer,Real,Boolean,String,TupleType,
+  not,and,or,xor,implies,module,create,from,uses,helper,def,context,
+  rule,using,derived,to,mapsTo,distinct,
+  foreach,in,do,if,then,else,endif,let,
+  library,query,for,div,refining,entrypoint},
+ keywordstyle=[2]{\textbf},
+ morecomment=[l]{--},
+ morestring=[b]{'},
+ tabsize=4}
+
+\newcommand{\lstATL}[1]{\lstinline[language=ATL,breaklines=true,basicstyle= \listingsfontinline]$#1$}
+
+\lstdefinelanguage{QVT}{
+  morekeywords={
+% relations:
+   checkonly, domain, enforce, extends, implementedby, import,
+  key, overrides, primitive, query, relation, top,
+  transformation, when, where
+% operational:
+ Bag, Collection, Dict, OrderedSet, Sequence, Set, Tuple, abstract,
+access, and, any, assert, blackbox, break, case, class, collect,
+collectNested, collectOne, collectselect, collectselectOne,
+composes, compute, configuration, constructor, continue, datatype,
+default, derived, disjuncts, do, elif, else, end, endif,
+enum, except, exists, extends, exception, false, forAll, forEach ,
+forOne, from, helper, if, implies, import , in, inherits, init,
+inout, intermediate, invresolve, invresolveIn, invresolveone,
+invresolveoneIn , isUnique, iterate, late, let, library, literal,
+log, main, map, mapping, merges, metamodel, modeltype, new, not,
+null, object, one, or, ordered, out, package, population, primitive, property,
+query, raise, readonly, references, refines, reject, resolve, resolveIn, resolveone,
+resolveoneIn, return, select, selectOne, sortedBy, static,
+switch, tag, then, transformation, true, try, typedef, unlimited,
+uses, var, when, where, while, with, xcollect , xmap, xor, xselect
+ },
+ keywordstyle=[2]{\textbf},
+ morecomment=[l]{--},
+ morestring=[b]{'},
+ tabsize=4}
+
+\lstdefinelanguage{ETL}{
+  morekeywords={true,false,
+   pre, rule, operation,
+  var, transform,to,
+  select, selectOne, all,
+  @greedy,
+  for,if,else,
+  not,and,or,
+  Any,String,Boolean,
+  true,false,return},
+ keywordstyle=[2]{\textbf},
+ morecomment=[l]{//},
+ morecomment=[s]{/*}{*/},
+ morestring=[b]",
+ tabsize=4}
+
+\lstdefinelanguage{Xtend}{
+ morekeywords={cached,case,default,extension,false,import,JAVA,WORKFLOWSLOT,let,new,null,private,create,switch,this,true,reexport,around,if,then,else,context},
+ keywordstyle=[2]{\textbf},
+ morecomment=[l]{//},
+ morecomment=[s]{/*}{*/},
+ morestring=[b]",
+ tabsize=4}
+
+\lstdefinelanguage{Xtext}{
+ morekeywords={grammar, with, hidden, generate, as, import, returns, current, terminal, enum},
+ keywordstyle=[2]{\textbf},
+ morecomment=[l]{//},
+ morecomment=[s]{/*}{*/},
+ morestring=[b]",
+ tabsize=4}
+
+\lstdefinelanguage{Xpand}{
+ morekeywords={IMPORT, DEFINE, ENDDEFINE, LET, ENDLET, FOR, FILE, ENDFILE, ITERATOR, FOREACH, AS, IF, ENDFOREACH, ENDIF, EXPAND, INSTANCEOF, USING, SEPARATOR, CSTART, CEND, PROTECT, ENDPROTECT, ID, EXTENSION, ERROR, WARNING, INFO},
+ inputencoding=latin1,
+ extendedchars=true,
+ % note: first and last guillemot of comments will not appear in comment style, guillemots are not possible in delimiters
+ morecomment=[s]{REM}{ENDREM},
+ morestring=[s]{"}{"},
+ % for use with UTF-8
+ literate={«}{\guillemotleft}{1}
+          {»}{\guillemotright}{1}
+}
+
+\lstdefinelanguage{EOL}{
+morekeywords={delete,import,for,while,in,and,or,self,operation,return,def,var,throw,if,new,else,transaction,abort,
+break,breakall,continue,assert,assertError,not, switch, case, default},
+sensitive=true,
+morecomment=[l]{//},
+morecomment=[l]{--},
+morecomment=[s]{/*}{*/},
+morecomment=[s]{-*}{*-},
+morestring=[b]",
+morestring=[b]',
+showstringspaces=false
+}
+
+\lstdefinelanguage{ETL}{
+morekeywords={import, pre, post, var, rule, to, extends, not, with, guard, match, merge, transform, for, in, and, or, self, operation, return, def, if, new, else, match, compare, conform, into, switch, case, default},
+sensitive=true,
+morecomment=[l]{//},
+morecomment=[s]{/*}{*/},
+morestring=[b]",
+showstringspaces=false
+}
+
+\lstdefinelanguage{EWL}
+{morekeywords={import, wizard, guard, do, title, for, not, in, and, or, operation, return, var, def, if, new, else, switch, case, default},
+sensitive=true,
+morecomment=[l]{//},
+morecomment=[s]{/*}{*/},
+morestring=[b]",
+showstringspaces=false,
+}
+
+\lstdefinelanguage{EGL}
+{morekeywords={@template, for, not, in, and, or, operation, return, var, def, if, new, else, switch, case, default},
+sensitive=true,
+morecomment=[l]{//},
+morecomment=[s]{/*}{*/},
+morestring=[b]",
+morestring=[s]{\%]}{[\%},
+showstringspaces=false,
+}
+
+\lstdefinelanguage{MOFScript}
+{morekeywords={rule,to,from,do,result},
+sensitive=false,
+morecomment=[l]{--},
+%morecomment=[s]{/*}{*/},
+morestring=[b]',
+showstringspaces=false
+}
+
+\lstdefinelanguage{OCL2}{
+morekeywords={context, package,endpackage,end,inv,and,or,xor,implies,if,else,then,endif,let,def},
+sensitive=true,
+morecomment=[l]{--},
+%morecomment=[s]{/*}{*/},
+morestring=[b]',
+showstringspaces=false
+}
+
+\lstdefinelanguage{ANTLR}{
+morekeywords={parser,grammar,options,backtrack,output,tokens,@after},
+sensitive=true,
+morecomment=[l]{*},
+%morecomment=[s]{/*}{*/},
+morestring=[b]',
+showstringspaces=false
+}
+
+\lstdefinelanguage{EMF}{
+morekeywords={@namespace,package,class,attr,val,extends,ref,Integer,Boolean,String,abstract,enum},
+sensitive=true,
+morecomment=[l]{//},
+%morecomment=[s]{/*}{*/},
+morestring=[b]',
+showstringspaces=false
+}
+
+\lstdefinelanguage{PSEUDO}{
+morekeywords={structure,interface,module,double,attribute,realizes,return,returns},
+sensitive=true,
+morecomment=[l]{//},
+%morecomment=[s]{/*}{*/},
+morestring=[b]',
+showstringspaces=false
+}
+
+
+
+%%%%%%%%%%%%% END CODE

@@ -1,0 +1,91 @@
+\chapter{Conclusions and Future Work}\label{secConclusions}
+
+This thesis describes an approach to solve the problem of \gls{ModelTransformationByExample} partially using a meta-heuristic optimization algorithm. In order to present the conclusions and point out possibilities for future research, the defined goals in section \ref{secObjectivesAndApproach} serve as a structure for this chapter.
+
+First, the overview of the \gls{ModelToModelTransformation} \glspl{DomainSpecificLanguage} shows that there is no generic and precise definition of such a language (see subsection \ref{secExistingModelTransformationLanguagesAndTools}). It renders an algorithm impossible, which solves all problem statements in this domain. In contrast, the \gls{MetaObjectFacility} language for the in- and output of such a transformation is well defined. The possible transformations are a result of the capabilities of this language. In order to reduce the number, \gls{MetaObjectFacility} is reduced and supports only basic structures in this thesis (see subsection \ref{secModelLanguage}). The \gls{EpsilonTransformationLanguage} is used as the \gls{TransformationLanguage} which is selected based on defined requirements.
+
+Second, the analysis of the meta-heuristic optimization algorithms from the domain of \glspl{SwarmIntelligentAlgorithm} and \glspl{EvolutionaryAlgorithm} shows that \glspl{GeneticProgramming} are specifically targeted at creating programs (see section \ref{secAlgorithms}). The others are focused on combinatorial problems or problems with a limited set of dimensions. Since the general problem could not be defined precisely, a reduction to one or more of those is discarded within this thesis (see section \ref{secAlgorithmTypeSelection}). In future research a general systematic categorization of meta-heuristic optimization algorithms including reference problems could simplify this selection. Additionally, the used terms are sometimes not clearly defined or provide a large scope of interpretation. For example, the definition of a general \gls{EvolutionaryAlgorithm} and a precise, common definition of \gls{SelectionStrategy} and \gls{ReplacementStrategy} would reduce misconceptions. Besides the general selection and understanding of the algorithms, the application should be supported by a design guideline. Furthermore, all meta-heuristic optimization algorithms share similar concepts. Hence, common terms and concepts, i.e. of \gls{Individual} and \gls{Ant}, should be extracted. This renders all algorithms easier to understand and to compare from a conceptional perspective. Based on those terms, a general design guideline could be created with derived, specific ones for each algorithm. Overall, the used algorithm design is often based on try-and-error, i.e. when designing the \gls{FitnessFunction}. This disadvantage might be overcome by design and evaluation guidelines.
+
+Third, the application of the \gls{GeneticProgramming} algorithm was successful in terms of the requirements (see section \ref{secRequirements}). The algorithm creates a maintainable ``MM$_a$ $\rightarrow$ MM$_b$ Transformation" using the provided example \glspl{Model} for the simple and complex scenario presented in chapter \ref{chapM2MScenarios} in usually less than two hours. Furthermore, a transformation pattern and \gls{FitnessFunction} design method is specified, which defines a guideline for further extensions (see section \ref{secMutationAndFitnessFunctionDesignProcess}). In general, the presented algorithm could solve scenarios which have solutions that can be constructed using the defined pattern (see section \ref{secPatternAndMutations}). Since the \gls{EvolutionaryAlgorithm} is based on randomness, there is always a chance to find no solution, even when theoretically possible. This chance is limited especially by the pattern and \gls{FitnessFunction} design and through the recommended configuration (see section \ref{secRecommendedConfiguration}), but could not be avoided completely. Compared to the existing \gls{ModelTransformationByExample} research presented in section \ref{secRelatedWork}, this approach presented a novel meta-heuristic optimization algorithm based on transformation pattern. The advantage is the well-defined extensibility of the algorithm and also the extensibility of the created \glspl{ModelToModelTransformation}. Thereby, large \glspl{SearchSpace} are systematically handled. Furthermore, it is based on a challenging \gls{ModelTransformationByExample} definition which requires only few information to be provided by domain experts (see subsection \ref{secRelatedWorkConclusions}). Finally, the prototype is a foundation for future research (see chapter \ref{chapPrototypeDesign} and appendix \ref{secAppendixA}).
+
+%Third, the application of the \gls{GeneticProgramming} algorithm was successful regarding the presented scenarios. As specified in the goals, the complexity was increased stepwise by identifying the relevant aspects in the previously mentioned \gls{MetaObjectFacility}. Those resulted in transformations of different complexity. %Nevertheless the large number of 
+
+%However, the scenarios do not provide an answer to the question of what could be solved by the presented solution in general.
+An in depth capability and performance comparison with existing approaches is difficult, since each approach uses different scenarios. Thus, establishing a set of reference scenarios including in- and output \glspl{Model} might overcome this lack of comparability. Such a reference library should be aided by a statistically sound evaluation methodology. It should define i.e., how many executions of an algorithm per scenario and configuration are performed. %Together both could serve as a framework for the comparison of the approaches.
+
+Additionally, negative examples should be considered in the reference library. Those might be an interesting method to avoid solutions targeted at specifics of the given positive examples, as observed in some solutions of the presented complex scenario (see section \ref{secMaintainabilityOfResults}).
+
+Supporting further scenarios will require more \glspl{GeneticOperator} in many cases, since the defined patterns are by design a subset of the \gls{TransformationLanguage}. The more operators are added, the more severe will be the problem of the selection of those. Those operators will probably contain many options that result in the same fitness, ending up in a random search. Hence, in future research the application of machine learning algorithms for the selection of the operators might be considered. Those algorithms could be trained based on the proposed set of reference scenarios. In addition to the improvement of the selection of \gls{Mutation} options, also advanced \glspl{FitnessFunction} might be applied. Instead of only analyzing the output \gls{Model}, also the transformation itself could be exploited using reverse engineering techniques. Thereby, the \gls{FitnessFunction} has more information and hence can distinguish more \glspl{Individual}.
+%Especially the initial creation of a \gls{Population}, the bootstrapping, will contain more \glspl{Individual} with a low fitness, the more specific patterns are added. But also in later \glspl{Generation}, with more advanced \glspl{Individual}, the chance of ending up in a random search increases.
+%Maybe also a hierarchy of the operators based on the presented pattern model could be identified, which results in an meta-heuristic optimization algorithm on top of the described one. Its \gls{SearchSpace} will be the operators and by executing the presented algorithm with a subset of those, it identifies an optimal configuration for a given scenario.
+
+Besides the algorithmic aspects, the \gls{SoftwareEngineering} aspects regarding the quality of the created solutions has to be considered as well. The created \glspl{ModelToModelTransformation} show that comprehensibility is a critical issue, which will probably sharpen in larger scenarios. Therefore, the manual or automatic modularization of \glspl{ModelToModelTransformation} should be considered in future research, resulting in re-usable sub-transformations. %Conflicting rules should be avoided by adding more fine grained restrictions to the \glspl{Mutation}.
+
+
+%comparsion framework + reference examples
+
+% 1. overview of MTBE, transformation languages
+	%- use OCL constraints in meta models (invariant)
+	%FUTURE: define generic m2m language / patterns (derived after all reference scenarios have been implemented)
+
+% 2. EA - SI from SE perspective -> compared to each other
+	%	- Create systematic selection of meta-heuristic algorithms
+	%		○ Create development/design approach
+	%			§ Phases
+	%				□ Initial setup with fitness function, mutation operators and selection+replacement strategy
+	%				□ Mutation operator extension until all required elements can be created
+	%				□ Fitness function + selection+replacement strategy evaluation, extension
+	%				□ More CPU / RAM power….
+	%		○ … reduce try-and error implementaion…
+	%		○ … mutation operator analysis tools / Methods
+	%		○ …use "responsive" reporting to identify interesting configurations easier
+	%			§ Fitness(Min,Max,Med,Q1,Q3) per generation
+	%			§ FitnessOfLastGen(Min,Max,Med,Q1,Q3) per
+	%				□ Input/output metamodel
+	%				□ Selection and replacement algorithm
+	%				□ Population size
+	%				□ Maximum number of generations
+	%				□ Mutation operator selection
+	%				□ Fitness function
+	%			§ Max Fitness per FitnessFunction
+	%				□ => configurations within the max-10% range?
+
+
+% 3. Apply algorithm to MTBE
+	%- rate quality of mutation operators
+	%	- Tune the algorithm
+	%		○ Smart operator selection:
+	%			§ Add operators for rare scenarios in further generations
+	%		○ Smart option selection: 
+	%			§ increase distance in further generations
+	%		○ Add crossover	
+		% bootstrap issue: "smarter" mutation selection strategies? learn algorithm??
+		% use only a restricted set of mutations -> evaluate
+	%- use shorter rule names and add comments instead to improve readability
+	%- use precision and recall in fitness function as a more solid foundation
+	%- mesaure association properties more detailed in fitness function
+	%-> define maintainibility criteria and refine operator design guide
+	% create re-usable sub-transformations / re-use transformations
+	% (use ACO to avoid doing the same mistake twice)
+
+		%- rate quality of mutation operators
+	%%note: conflicting rules / property association mappings possible!
+	% Also other limits might be used in later prototype versions e.g. memory usage or the detection of a stagnation.
+	% manual modularization of input transformations
+	%evaluation: create an evaluation framework using statistical methods (50x??)
+	
+	% approach based on reverse engineering
+
+% 4. balanced problem statement
+	%	- Create reference transformation scenarios incl. Examples!
+	%		○ 1:N etc. on meta-model level AND on model-level
+	%		○ Negative examples???
+	%		○ Attributes!?
+	%… what about complex attribute calculations? Complex 1:N transformations?
+	% multiple example pairs?
+	
+% found solutions!
+% difficult to create solutions and even more difficult to create understandable solutions
+
+
+% https://stackoverflow.com/questions/4380627/what-is-holding-genetic-programming-back

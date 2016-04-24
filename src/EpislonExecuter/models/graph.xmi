@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:Graph="Graph">
+  <Graph:Node>
+    <outgoing target="/1"/>
+    <outgoing target="/4"/>
+    <outgoing target="/5"/>
+  </Graph:Node>
+  <Graph:Node incoming="/0/@outgoing.0">
+    <outgoing target="/2"/>
+  </Graph:Node>
+  <Graph:Node name="Added1" incoming="/1/@outgoing.0">
+    <outgoing target="/3"/>
+  </Graph:Node>
+  <Graph:Node name="Added1" incoming="/2/@outgoing.0"/>
+  <Graph:Node incoming="/0/@outgoing.1"/>
+  <Graph:Node incoming="/0/@outgoing.2">
+    <outgoing target="/6"/>
+  </Graph:Node>
+  <Graph:Node name="Added2" incoming="/5/@outgoing.0">
+    <outgoing target="/7"/>
+  </Graph:Node>
+  <Graph:Node name="Added2" incoming="/6/@outgoing.0"/>
+</xmi:XMI>

@@ -1,0 +1,20 @@
+@Spec {
+	metamodel "simpleStateMachineMetaModel" {
+		nsUri: "simpleStateMachineMetaModel"
+	}
+}
+
+simpleStateMachineMetaModel {
+	SimpleStateMachine "DHC State Machine" {
+		Name: "DHC"
+		States:   State "DHC Off" { Name: "DHC Off" },
+				  State "DHC Ready" { Name: "DHC Ready" },
+				  State "DHC Operating" { Name: "DHC Operating" }
+		InitialState: State "DHC Off"					
+		Transitions: Transition "DHC Off -> DHC Ready" { Name: "DHC Off -> DHC Ready" Source: State "DHC Off" Target : State "DHC Ready" },
+					 Transition "DHC Ready -> DHC Operating" { Name: "DHC Ready -> DHC Operating" Source: State "DHC Ready" Target : State "DHC Operating" },
+					 Transition "DHC Operating -> DHC Ready" { Name: "DHC Operating -> DHC Ready" Source: State "DHC Operating" Target : State "DHC Ready" },
+					 Transition "DHC Ready -> DHC Off" { Name: "DHC Ready -> DHC Off" Source: State "DHC Ready" Target : State "DHC Off" },
+					 Transition "DHC Operating -> DHC Off" { Name: "DHC Operating -> DHC Off" Source: State "DHC Operating" Target : State "DHC Off" }
+	}
+}

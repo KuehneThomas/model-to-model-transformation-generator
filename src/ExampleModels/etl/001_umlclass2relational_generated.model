@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EtlModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="etlMetaModel">
+  <mofClassesSource name="UmlPackage">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Classes" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="Associations" association="#//@mofAssociationsSource.3"/>
+  </mofClassesSource>
+  <mofClassesSource name="UmlClass">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Package" association="#//@mofAssociationsSource.0"/>
+    <ownedProperties name="outgoingRelations" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="incomingRelations" association="#//@mofAssociationsSource.2"/>
+  </mofClassesSource>
+  <mofClassesSource name="UmlAssociation">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Package" association="#//@mofAssociationsSource.3"/>
+    <ownedProperties name="Source" association="#//@mofAssociationsSource.1"/>
+    <ownedProperties name="Target" association="#//@mofAssociationsSource.2"/>
+  </mofClassesSource>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.1 #//@mofClassesSource.1/@ownedProperties.1"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.2 #//@mofClassesSource.2/@ownedProperties.2"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.1/@ownedProperties.3 #//@mofClassesSource.2/@ownedProperties.3"/>
+  <mofAssociationsSource memberEnds="#//@mofClassesSource.0/@ownedProperties.2 #//@mofClassesSource.2/@ownedProperties.1"/>
+  <mofClassesTarget name="RelationalSchema">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Tables" association="#//@mofAssociationsTarget.0"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="RelationalTable">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="Schema" association="#//@mofAssociationsTarget.0"/>
+    <ownedProperties name="ForeignKeys" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="ReferencedBy" association="#//@mofAssociationsTarget.2"/>
+  </mofClassesTarget>
+  <mofClassesTarget name="RelationalForeignKey">
+    <ownedProperties name="Name"/>
+    <ownedProperties name="OwnedByTable" association="#//@mofAssociationsTarget.1"/>
+    <ownedProperties name="ReferencedTable" association="#//@mofAssociationsTarget.2"/>
+  </mofClassesTarget>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.0/@ownedProperties.1 #//@mofClassesTarget.1/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.2 #//@mofClassesTarget.2/@ownedProperties.1"/>
+  <mofAssociationsTarget memberEnds="#//@mofClassesTarget.1/@ownedProperties.3 #//@mofClassesTarget.2/@ownedProperties.2"/>
+</EtlModule>

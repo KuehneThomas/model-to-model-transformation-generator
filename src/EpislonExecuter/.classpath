@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eol.engine_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eol.tools_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eol.dt.tools_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eol.dt_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.common_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.emc.emf_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.emf/org.eclipse.emf.common_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.emf/org.eclipse.emf.ecore_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.emf/org.eclipse.emf.ecore.xmi_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.etl.dt_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.etl.engine_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.erl.engine_1.1.0.201309101707/org.eclipse.epsilon.erl.engine.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eunit.dt.cmp.emf_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eunit.dt.diff.emf_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.eunit.engine_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.emf/org.eclipse.emf.compare_3.0.0.201306101322.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.ewl.dt_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.ewl.emf_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.ewl.engine_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.egl.engine_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.egl.dt_1.1.0.201309101707.jar"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.epsilon/org.eclipse.epsilon.egl.traceability.fine_1.1.0.201309101707.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
+	<classpathentry kind="lib" path="C:/TFS/ThomasMasterThesis/ExternalLibraries/org.eclipse.antlr/org.antlr.runtime_3.1.b1_3.1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/guice-3.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/logback-1.0.13"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/slf4j-1.7.5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

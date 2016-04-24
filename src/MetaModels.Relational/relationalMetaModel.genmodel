@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/MetaModels.Relational/src" modelPluginID="MetaModels.Relational"
+    modelName="RelationalMetaModel" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>relationalMetaModel.emf</foreignModel>
+  <genPackages prefix="RelationalMetaModel" disposableProviderFactory="true" ecorePackage="relationalMetaModel.ecore#/">
+    <genClasses ecoreClass="relationalMetaModel.ecore#//RelationalSchema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationalMetaModel.ecore#//RelationalSchema/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference relationalMetaModel.ecore#//RelationalSchema/Tables"/>
+    </genClasses>
+    <genClasses ecoreClass="relationalMetaModel.ecore#//RelationalTable">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference relationalMetaModel.ecore#//RelationalTable/Schema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationalMetaModel.ecore#//RelationalTable/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference relationalMetaModel.ecore#//RelationalTable/ForeignKeys"/>
+    </genClasses>
+    <genClasses ecoreClass="relationalMetaModel.ecore#//RelationalForeignKey">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationalMetaModel.ecore#//RelationalForeignKey/Name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference relationalMetaModel.ecore#//RelationalForeignKey/OwnedByTable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference relationalMetaModel.ecore#//RelationalForeignKey/ReferencedTable"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

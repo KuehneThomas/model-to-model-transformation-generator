@@ -1,0 +1,20 @@
+@Spec {
+	metamodel "relationalMetaModel" {
+		nsUri: "relationalMetaModel"
+	}
+}
+
+package  {
+	RelationalSchema "RelationalSchemaExpected" {
+		Name: "Vehicles"
+		Tables: RelationalTable "RelationalTable1" {
+			Name: "Car"
+			ForeignKeys: RelationalForeignKey "RelationalForeignKey1" {
+				Name: "Car2Engine"
+				ReferencedTable: RelationalTable "RelationalTable"
+			}
+		}, RelationalTable "RelationalTable" {
+			Name: "Engine"
+		}
+	}
+}

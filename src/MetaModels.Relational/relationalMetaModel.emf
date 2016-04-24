@@ -1,0 +1,29 @@
+@namespace(uri="relationalMetaModel", prefix="")
+@gmf
+package relationalMetaModel;
+
+@gmf.diagram
+class RelationalSchema {
+	attr String Name;
+	val RelationalTable[*]#Schema Tables;
+}
+
+@gmf.node(label = "Name")
+class RelationalTable {
+  ref RelationalSchema[1]#Tables Schema;
+  attr String Name;
+  
+  @gmf.compartment
+  val RelationalForeignKey[*]#OwnedByTable ForeignKeys;
+  
+  // this is neccessary because MOF 2.0 has no Reference any more - had been removed, only Associations with Properties on both ends are possible (exists still in Ecore Meta Model though)
+  ref RelationalForeignKey[*]#ReferencedTable ReferencedBy; 
+}
+
+@gmf.node(label = "Name")
+class RelationalForeignKey {
+	attr String Name;
+	ref RelationalTable[1]#ForeignKeys OwnedByTable;
+	@gmf.link(target.decoration="arrow", style="dash")
+	ref RelationalTable[1]#ReferencedBy ReferencedTable;
+}

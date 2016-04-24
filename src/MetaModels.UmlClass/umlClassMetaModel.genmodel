@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/MetaModels.UmlClass/src" modelPluginID="MetaModels.UmlClass"
+    modelName="UmlClassMetaModel" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>umlClassMetaModel.emf</foreignModel>
+  <genPackages prefix="UmlClassMetaModel" disposableProviderFactory="true" ecorePackage="umlClassMetaModel.ecore#/">
+    <genClasses ecoreClass="umlClassMetaModel.ecore#//UmlPackage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute umlClassMetaModel.ecore#//UmlPackage/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlPackage/Classes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlPackage/Associations"/>
+    </genClasses>
+    <genClasses ecoreClass="umlClassMetaModel.ecore#//UmlClass">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlClass/Package"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute umlClassMetaModel.ecore#//UmlClass/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlClass/outgoingRelations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlClass/incomingRelations"/>
+    </genClasses>
+    <genClasses ecoreClass="umlClassMetaModel.ecore#//UmlAssociation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute umlClassMetaModel.ecore#//UmlAssociation/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlAssociation/Source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference umlClassMetaModel.ecore#//UmlAssociation/Target"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

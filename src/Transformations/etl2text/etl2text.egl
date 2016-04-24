@@ -1,0 +1,217 @@
+[% 
+for(etlModule in EtlModule.allInstances) { 
+	for(transformationRule in etlModule.transformationRules) { 
+%][%= transformationRule.toText() %]
+
+[% 
+	}
+}
+
+  @template
+  operation EtlTransformationRule toText() { 	
+%]
+rule [%= self.name %][%= self.guardName %]
+	transform [%= self.sourceParameter.toText("Source") %]
+	to	  [%= self.targetParameters.collect( tp | tp.toText("Target") ).concat(",") %] {
+	[% if (self.guard.isDefined()) { %]
+	guard: [%= self.guard.toText() %]
+	[% } %]	
+	[% if (self.body.isDefined()) { %]
+	[%= self.body.toText() %]
+	[% } %]
+}
+[%
+  } 
+  @template
+  operation EolMofClassFormalParameter toText(prefix) {
+  	if (self.isSequence.isDefined() and self.isSequence) {
+   		%][%= self.name %] : Sequence([%= prefix %]![%= self.referenced.name %])[% 	
+  	} else {
+  		%][%= self.name %] : [%= prefix %]![%= self.referenced.name %][%  	
+  	}
+
+  } 
+  @template
+  operation EolStatementBlock toText() { 
+	for(statement in self.statements) {
+		%][%= statement.toText() %]
+		[%
+	}
+  } 
+  @template
+  operation EolStatement toText() { 
+	%][%= "EolStatement NOT MAPPED:" + self.type().name + "; " %][%
+  } 
+  @template
+  operation EolAssignmentStatement toText() { 
+	%][%= self.logicalExpressionLeft.toText() %] = [%= self.logicalExpressionRight.toText() %];[%
+  } 
+  @template
+  operation EolAssignmentExpressionStatement toText() { 
+	%][%= self.postfixExpressionLeft.toText() %] = [%= self.logicalExpressionRight.toText() %];[%
+  }
+  @template
+  operation EolLogicalExpressionStatement toText() { 
+	%][%= self.logicalExpression.toText() %];[%
+  }      
+  @template
+  operation EolLogicalExpression toText() { 
+	%][%= self.relationalExpression.toText() %][%
+	if (self.chainedLogicalExpression.isDefined()) {
+		%]
+
+[%= self.chainedLogicalExpression.toText() %][%
+	}
+  } 
+  @template
+  operation EolChainedLogicalExpression toText() { 
+	%][%= self.logicalOperator.toString() %] [%= self.logicalExpression.toText() %][%
+  }   
+  @template
+  operation EolRelationalExpression toText() { 
+	%][%= self.additiveExpression.toText() %][%
+	if (self.chainedRelationalExpression.isDefined()) {
+		%][%= self.chainedRelationalExpression.toText() %][%
+	}
+  }
+  @template
+  operation EolGenericChainedRelationalExpression toText() { 
+	%][%= "NOT MAPPED:" + self.type().name + "; " %][%
+  }  
+  @template
+  operation EolChainedRelationalExpression toText() { 
+  	switch(self.relationalOperator.name) {
+  		case "equal":
+  			%] == [%
+  		case "assignment":
+  			%] = [%
+		default:  
+			%] EolChainedRelationalExpression NOT MAPPED! [%		
+  	}
+	%][%= self.relationalExpression.toText() %][%
+  }
+  @template
+  operation EolAdditiveExpression toText() { 
+	%][%= self.multiplicativeExpression.toText() %][%
+	if (self.chainedAdditiveExpression.isDefined()) {
+		%][%= self.chainedAdditiveExpression.toText() %][%
+	}
+  }
+  @template
+  operation EolChainedAdditiveExpression toText() { 
+  	switch(self.additiveArithmeticalOperator.name) {
+  		case "plus":
+  			%] + [%
+  		case "minus":
+  			%] - [%
+		default:  
+			%] EolChainedAdditiveExpression NOT MAPPED! [%		
+  	}
+  	%][%= self.additiveExpression.toText() %][%
+  } 
+  @template
+  operation EolMultiplicativeExpression toText() { 
+	%][%= self.unaryExpression.toText() %][%
+	if (self.chainedMultiplicativeExpression.isDefined()) {
+		%][%= self.chainedMultiplicativeExpression.toText() %][%
+	}
+  }
+  @template
+  operation EolChainedMultiplicativeExpression toText() { 
+
+  }   
+  @template
+  operation EolUnaryExpression toText() { 
+	if (self.unaryOperatorNullable.isDefined()) {
+	  	switch(self.unaryOperatorNullable.unaryOperator.name) {
+	  		case "minusUnary":
+	  			%] - [%
+	  		case "not":
+	  			%]not [%
+			default:  
+				%] EolUnaryExpression NOT MAPPED![%		
+	  	}
+	}
+	%][%= self.PostfixExpression.toText() %][%
+  }
+  @template
+  operation EolPostfixExpression toText() { 
+	%][%= self.itemSelectorExpression.toText() %][%
+	if (self.chainedFeatureCallPostfixExpression.isDefined()) {
+		%].[%= self.chainedFeatureCallPostfixExpression.toText() %][%
+	}
+  } 
+  @template
+  operation EolChainedFeatureCallPostfixExpression toText() { 
+	%][%= self.featureCall.toText() %][%
+	if (self.featureCallAdditionalLogicalExpression.isDefined()) {
+		%][%= self.featureCallAdditionalLogicalExpression.toText() %][%
+	}
+	if (self.chainedFeatureCallPostfixExpression.isDefined()) {
+		%].[%= self.chainedFeatureCallPostfixExpression.toText() %][%
+	}
+  }
+  @template
+  operation EolSimpleFeatureCall toText() {
+  %][%= self.name %]([%
+  	if (self.parameterList.isDefined()) {
+		%][%= self.parameterList.logicalExpressions.collect( logicalExpressionParameter | logicalExpressionParameter.toText() ).concat(',') %][%
+	}
+  %])[%
+  }      
+  @template
+  operation EolItemSelectorExpression toText() { 
+  	if (self.primitiveExpression.isDefined()) {
+	%][%= self.primitiveExpression.toText() %][%
+	} else {
+	%]ERROR[%
+	}
+	if (self.additionalPrimitiveExpression.isDefined()) {
+		%][%= self.additionalPrimitiveExpression.toText() %][%
+	}
+  } 
+  @template
+  operation EolFormalParameterReferenceExpression toText() { 
+	%][%= self.referencedFormalParameter.name %][%
+  }
+  @template
+  operation EolVariableReferenceExpression toText() { 
+	%][%= self.referencedVarableDeclaration.name %][%
+  }        
+  @template
+  operation EolMofPropertyFeatureCall toText() { 
+	%][%= self.referencedMofProperty.name %][%
+  }  
+  @template
+  operation EtlEquivalentMethodFeatureCall toText() { 
+	%]equivalent()[%
+  }
+  @template
+  operation EolIsTypeOfSourceMofClassFeatureCall toText() {
+	%]isTypeOf(Source![%= self.referencedMofClass.name %])[%  
+  }
+  @template
+  operation EolFor toText() {
+  	%]for([%= self.formalParameter.name %] in [%= self.iteratedSequence.toText() %]) {
+  		[%= self.statementBlock.toText() %]
+}[%
+  }
+  @template
+  operation EolVariableDeclarationExpression toText() {
+  	%]var [%= self.name %][%
+  }
+  @template
+  operation EolNewExpression toText() {
+  	%]new [% 
+  	 if (EtlModule.allInstances.first().mofClassesSource.includes(self.instantiatedMofClass)) {
+  	 	%]Source"[% 
+  	 } else { 
+  	 	%]Target[% 
+  	 }%]![%= self.instantiatedMofClass.Name %][%
+  } 
+  @template
+  operation EolStringLiteral toText() {
+ 	%]"[%= self.value %]"[%
+  }
+  
+%]

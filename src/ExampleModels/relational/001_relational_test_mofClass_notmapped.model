@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelationalSchema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="relationalMetaModel"
+    Name="Vehicles">
+  <Tables Name="Car"/>
+  <Tables Name="Engine"/>
+</RelationalSchema>
