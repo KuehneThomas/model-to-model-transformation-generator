@@ -1,0 +1,68 @@
+\chapter{Introduction}\label{chapIntroduction}
+
+In the field of \gls{SoftwareEngineering} many areas require tedious manual tasks. One area is \gls{ModelToModelTransformation}. In this area domain experts need to create \glspl{TransformationRule} which allow the conversion of different "model types". This task is especially relevant when designing software systems with the \gls{ModelDrivenDevelopment} methodology. The starting point in this methodology is a \gls{DomainSpecificLanguage} which is close to the problem domain, but far away from the technical solution in semantic terms. Therefore, a transformation from the domain specific \gls{MetaModel} towards a more technical one is required. Creating these transformations manually can be quite difficult for complex \glspl{MetaModel}. 
+
+One approach in making this task easier is to avoid creating the complete meta-to-meta-model transformation by hand. Instead, semantically equivalent example \glspl{Model} for both are provided. This approach is called \gls{ModelTransformationByExample}. Most research approaches in \gls{ModelTransformationByExample} assume that these examples also include additional information, i.e. the mapping constructions from one to another (see section \ref{secRelatedWork}). Using these constructions general rules are to be identified, i.e., by using logical deduction/induction. Nevertheless, no holistic approach towards \gls{ModelTransformationByExample} exists, especially not for complex transformations. %The reason is that the designer of the "transformation generator" has to be aware of the whole complexity at design time. 
+
+Another new direction is to use a completely different approach and utilize \glspl{EvolutionaryAlgorithm} and \glspl{SwarmIntelligentAlgorithm}. Both are meta-heuristic optimization algorithms and provide optimization techniques which can be utilized when defining \gls{ModelTransformationByExample} as an optimization problem. 
+
+This thesis aims to provide an approach which generates \glspl{ModelToModelTransformation} according to the \gls{ModelTransformationByExample} approach, by using meta-heuristic optimization algorithms.
+
+In section \ref{secMotivation} a motivating introduction to \gls{ModelTransformationByExample} is presented to provide an overview of the task that has to be automated. Thereafter the general solution idea is described in section \ref{secSolutionIdea}. The third section \ref{secObjectivesAndApproach} describes the general objectives of the thesis more precisely. In the last section \ref{secOverview} an overview of the thesis is given.
+
+\section{Motivation}
+\label{secMotivation}
+
+The idea of \gls{ModelTransformationByExample} is to identify a mapping between two \glspl{MetaModel} using a \gls{TransformationLanguage} without the need of a manual transformation. Instead, the domain experts need to create example \glspl{Model} of these two \glspl{MetaModel} which are semantically equivalent - but not syntactically due to the different \glspl{MetaModel}. 
+
+%The currently common approaches of \gls{ModelTransformationByExample} additionally also require so called \glspl{Trace}, which are basically manually created links between the model instance elements of both examples. Due to the fact that domain experts are often not familiar with model transformations the creation of \glspl{Trace} is still an obstacle. Therefore, the latest approaches in \gls{ModelTransformationByExample} assume that the only given input are the semantically equivalent examples without any \glspl{Trace} and the output is a generic transformation or at least a generic transformation generator for the two \glspl{MetaModel}. The first one is the ideal solution because it provides concrete rules which could be analyzed and compared easily to i.e. human created transformations while the second one is only "a machine" which creates transformations ad hoc.
+
+In general there are two types of \glspl{MetaModel}: structural and behavioral. Examples of the first \gls{MetaModel} type are \glspl{ClassDiagram} and \glspl{RelationalSchema}. A common scenario is that a general purpose \gls{ClassDiagram} should be transformed to a \gls{RelationalSchema} that is required for the database design. According to \gls{ModelDrivenDevelopment} a \gls{PlatformIndependentModel} is transformed into a \gls{PlatformSpecificModel}. This kind of transformation is representative for \gls{ModelDrivenDevelopment}, which is a key application area of \glspl{ModelToModelTransformation}. A simplified \gls{ClassDiagram} consists only of \glspl{Class} with \glspl{Property}, whereas a simplified \gls{RelationalSchema} only of database-tables with columns. Based on those \glspl{MetaModel} a domain expert might provide the following examples: A \gls{Class} of type ``User" contains the \glspl{Property} ``Id" and ``Name". In the \glspl{RelationalSchema} it is a table of type ``Users" with the columns ``UserId" and ``Name". Given these simple example as an input, the \gls{ModelTransformationByExample} algorithm has to identify a mapping from \glspl{Class} to tables and from \glspl{Property} to columns. Both together form the transformation.
+
+After providing an overview of \gls{ModelTransformationByExample} the next section introduces the algorithms which will be used to automatically create these transformations.
+
+\section{Solution Idea}
+\label{secSolutionIdea}
+
+The two nature-inspired algorithm types which are analyzed for possible applications to \gls{ModelTransformationByExample} are \glspl{EvolutionaryAlgorithm} and \glspl{SwarmIntelligentAlgorithm}. In general both algorithms work in a similar way. At first a given problem has to be ``encoded" which is basically a problem reduction to an input language. The \gls{Encoding} is the language of the \glspl{CandidateSolution} which are created by the algorithm. In order to be able to compare the different \glspl{CandidateSolution}, a \gls{FitnessFunction} must be defined. 
+
+In the case of \glspl{EvolutionaryAlgorithm} additionally the \glspl{GeneticOperator} have to be provided. Such an operator is for example a \gls{Mutation} which modifies a possible solution slightly with the expectation to find a better one than the original. Using many different \glspl{CandidateSolution} enables these algorithms to cover a vast \gls{SearchSpace} which is a great advantage when the possible locations are manifold like in complex transformations. 
+%To avoid that these algorithms are randomly searching for a solution it is important to define a proper fitness function which has no too
+
+Typical \glspl{SwarmIntelligentAlgorithm} are \gls{AntColonyOptimization} and \gls{ParticleSwarmOptimization}. \Gls{AntColonyOptimization} basically mimics the behavior of ants when searching for shortest paths to a food source. \Gls{ParticleSwarmOptimization} on the contrary is based on particles which are moving through space. These particles are searching for the best position thereby considering the best known one of the whole swarm.
+
+None of these algorithms is using a single instance which has to be optimized, i.e. a \gls{ModelToModelTransformation}, but instead they use many different instances. They then try to evolve these instances into the optimal solution for a defined problem by changing themselves. In general the idea is that a transformation is such an instance. The vision is that these transformation entities become a complete working transformation for even more complex scenarios by only defining relatively simple modification rules within the algorithm.
+
+The guidance of the algorithm towards a solution should follow the \gls{ModelTransformationByExample} methodology. At first, a task must be defined which consists of two \glspl{MetaModel}, whereas instances of the first one must be transformed into instances of the second one. In order to rate the correctness of a \gls{CandidateSolution}, one or more example instances of the first \gls{MetaModel} with the corresponding expected outputs must be provided. Those output \glspl{Model} have to conform to the second \gls{MetaModel}. The trivial solution which just returns the output is not allowed.
+
+Having introduced the general solution idea, the following section defines the objectives of the thesis.
+
+\section{Objectives and Approach}
+\label{secObjectivesAndApproach}
+
+The objectives of the thesis are divided into three main parts. 
+First, an overview of \glspl{ModelToModelTransformation}, \gls{ModelTransformationByExample} and the existing approaches thereof has to be provided. Also, the existing \glspl{TransformationLanguage} including their capabilities are introduced. % because one of these or at least a subset is needed later when the creation of transformations is being automated.
+
+Second, the possibilities as well as limitations of \glspl{EvolutionaryAlgorithm} and \glspl{SwarmIntelligentAlgorithm} from a \gls{SoftwareEngineering} point of view in general and particularly regarding \gls{ModelTransformationByExample} are identified. This includes the particularities of both algorithms compared to each other. It establishes a general understanding for which scenarios these algorithms are applicable. %Additionally, the design methodologies of those algorithms have to be analyzed. % which will serve as a methodological foundation of the third part of the theses.
+
+Third, one or more of these algorithms is applied to \gls{ModelTransformationByExample} and evaluated. There are two general ideas how this could be achieved: Either one algorithm alone is applied or a hybrid approach of two or more combined algorithms could be used. Within an hybrid approach at first a generative \glspl{EvolutionaryAlgorithm} (\cite{koza92}) could be utilized to create a set of solutions. Afterwards, a \gls{ParticleSwarmOptimization} algorithm could be used to further evaluate the existing solutions towards an optimal one.
+
+A major challenge of the application part is to find a balanced problem statement, called scenario in this thesis. On the one hand it should be representative to demonstrate the relevance in the domain of \glspl{ModelToModelTransformation}. Whereas on the other hand it has to be modular to increase the complexity stepwise, thereby avoiding large intangible search spaces. Otherwise the algorithm might not be able to solve the scenario and a root cause analysis is rendered impossible due to the high number of potential issues. 
+
+%On the one hand it should not be too easy, e.g., \glspl{ModelToModelTransformation} which could easily be done by hand. Whereas on the other hand it must also not be too complicated because thereby large intangible search spaces are created.
+
+Therefore, the general approach for the third part is an iterative one: Based on the two \gls{MetaModel} types (structural and behavioral) a simple and complex transformation scenario has to be created. The former will be the starting point while the latter will be a challenging goal. %%The initially designed algorithm will be applied to the simple versions and, in the case it is working well, the examples are being extended step by step towards the complex ones. %In the first iterations the focus will be on the structural \glspl{Model} because the transformation task is assumed to be easier. % (e.g. the sequential order is irrelevant, decisions/merges are not present).
+
+\section{Overview}
+\label{secOverview}
+
+Finally, an outline of the remainder of the thesis is described.
+
+\begin{itemize}
+	\item In chapter \ref{chapFoundations} the \gls{SoftwareEngineering} foundations of \glspl{ModelTransformationByExample} and \glspl{ModelToModelTransformation}, as well as the meta-heuristic optimization algorithm foundations of \glspl{SwarmIntelligentAlgorithm} and \glspl{EvolutionaryAlgorithm} are explained.
+	\item Using all this information, an overview of the algorithmic approach and the development process is being defined in chapter \ref{chapAlgorithmicApproach}.
+	\item Thereafter the \gls{ModelToModelTransformation} scenarios are presented for a simple and a complex scenario in chapter \ref{chapM2MScenarios}.
+	\item Based on these the algorithm design is described in chapter \ref{chapAlogrithmDesign}, followed by the prototype design in chapter \ref{chapPrototypeDesign}.
+	\item The results of the evaluation resulting out of the prototype execution using the scenarios is provided in chapter \ref{chapEvaluation}.
+	\item In chapter \ref{secSummarizedApproach} the whole algorithm is summarized, followed by the conclusions in chapter \ref{secConclusions}.
+\end{itemize}

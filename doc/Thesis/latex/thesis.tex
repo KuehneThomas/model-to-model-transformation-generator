@@ -1,0 +1,128 @@
+% -*- TeX -*- -*- ENG -*- -*- UNIX -*-
+%\RequirePackage{silence}
+%\WarningsOff
+
+\input{thesisDocumentClass} % Dokumentklasse bestimmen
+
+\hfuzz=5.002pt %relax underfull hbox warning threshold
+%\usepackage{silence}
+
+%\usepackage{charter}
+%\usepackage{courier}
+%\usepackage[T1]{fontenc}
+
+\input{Constants} % Konstanten laden, z.B.: Begriffe wie Bachelor-Arbeit, Bachelor of Science, etc.
+
+\usepackage[american]{babel}
+%\usepackage[ansinew]{inputenc} %Für deutsche Kodierung von Buchstaben ä,ö,ü,ß unter Windows (für Unix: 'latin1' statt 'ansinew') ansonsten muss man Folgendes schreiben:
+% \"a für ä, \"o für ö, \"u für ü, \ss für ß.
+%\usepackage{german} % unter anderem für bessere Silbentrennung
+
+\input{thesisData} % Parameter wie Autor, Titel, Datum, Gutachter, etc.
+
+
+
+\usepackage{ifthen} % Paket für if-then-else-Konstrukte
+
+\usepackage{verbatim}  % z.B. für comment-Umgebung
+%\usepackage{natbib}    % für BibTeX mit dinat style (DIN 1505, Teil 2 und 3)
+%\usepackage{bibgerm}   % für BibTeX mit deutschem style z.B. geralpha
+%\usepackage{makeidx}   % für Index-/Stichwortverzeichnis
+%\makeindex             % lässt LaTeX die Indexeinträge sammeln
+%\usepackage[colorlinks]{hyperref}
+%\usepackage{epsfig}   % zum Einfügen von EPS-Grafiken
+\usepackage{array}     % weitere Hilfsmittel für Tabellen
+%\usepackage{float}    % für weitere Gleitumgebungen außer table und figure
+
+\usepackage{setspace}  % für 1-fachen, 1,5-fachen oder 2-fachen Zeilenabstand
+
+%\floatstyle{plain}
+%\floatname{sourcecode}{Code-Fragment}
+%\newfloat{sourcecode}{htbp}{loc}[chapter] % neue Gleitumgebung für Quellcode
+
+%\usepackage[vmargin={41mm,45mm},hmargin={47mm,47mm}]{geometry} %
+%\usepackage[a4paper]{geometry}
+\usepackage{lscape}
+
+\input{MathDefinitions} % einige mathematische Hilfskonstrukte und Vereinfachungen
+%\usepackage{mathabx}
+\usepackage{mathtools}
+%\usepackage{amsmath}
+%\usepackage{amsthm}
+%\newtheorem{meintheorem}{Satz}[section]
+
+\usepackage{listings}
+
+\input{PageLayout} % Layout der Seiten, z.B. Kopf- und Fußzeilendefinition
+
+
+% ueberpruefen, ob wir pdflatex ausfuehren (geht nur bei Koma-Klassen)
+\ifpdfoutput
+{
+% PDF wird genutzt
+	
+	\usepackage[pdftex]{graphicx,color}
+	% eigene Farben für Links:
+  %\definecolor{myLinkColor}{rgb}{0,0,.5}
+  %\definecolor{myCiteColor}{rgb}{0,.5,0}
+  %\definecolor{myFileColor}{rgb}{.5,0,0}
+  %\definecolor{myURLColor}{rgb}{0,0,1}
+  % Setzen aller Link-Farben auf Schwarz
+  \definecolor{myLinkColor}{rgb}{0,0,0}
+  \definecolor{myCiteColor}{rgb}{0,0,0}
+  \definecolor{myFileColor}{rgb}{0,0,0}
+  \definecolor{myURLColor}{rgb}{0,0,0}
+  \usepackage[pdftex,%
+  						pdftitle={\meinTitel},%
+  						pdfauthor={\meinName},%
+  						pdfkeywords={\meinePDFStichwoerter},% Stichwörter
+  						plainpages=false,%
+  						pdfpagelabels,% Seitenzahl als z.B. 'ii (4 of 40)' anstatt '4 of 40' darstellen
+  						colorlinks=true,%
+  						linkcolor=myLinkColor,%
+  						citecolor=myCiteColor,%
+  						filecolor=myFileColor,%
+  						urlcolor=myURLColor,%
+  						bookmarks,% Lesezeichen erstellen
+  						bookmarksnumbered, % Lesezeichen nummeriert wie im Inhaltsverzeichnis
+  						breaklinks, % Zeilenumbrüche bei Links erlauben
+  						%pdfpagelayout={TwoColumnRight}% zweiseitiges fortlaufendes Layout
+  						]{hyperref}
+  \pdfcompresslevel=9 %Kompressionslevel fuer Text und Grafiken
+  \DeclareGraphicsExtensions{.pdf, .png, .jpg, .tif, .mps} % Dateiendungen für Grafikdateien, geordnet nach Priorität für automatische Auswahl der richtigen Datei, falls Endung nicht angegeben
+}
+{
+% Kein PDF
+
+  \usepackage{graphicx}
+  \usepackage{color}
+  \usepackage[hypertex, bookmarks,% Lesezeichen erstellen
+  						bookmarksnumbered, % Lesezeichen nummeriert wie im Inhaltsverzeichnis
+  						breaklinks, % Zeilenumbrüche bei Links erlauben
+  						]{hyperref}
+  \DeclareGraphicsExtensions{.eps,.ps} % Dateiendungen für Grafikdateien
+}
+
+% must be after hyperref (otherwise the page numbers in the glossary are no links):
+\usepackage[nomain=true,toc,section=section]{glossaries}
+\glsenablehyper		   % enable glossary links
+
+\usepackage[normalem]{ulem}
+\let\originalgls\gls
+\renewcommand{\gls}[1]{\emph{\originalgls{#1}}}
+\let\originalglspl\glspl
+\renewcommand{\glspl}[1]{\emph{\originalglspl{#1}}}
+\let\originalGls\Gls
+\renewcommand{\Gls}[1]{\emph{\originalGls{#1}}}
+\let\originalGlspl\Glspl
+\renewcommand{\Glspl}[1]{\emph{\originalGlspl{#1}}}
+\let\originalGlsfirst\Glsfirst
+\renewcommand{\Glsfirst}[1]{\emph{\originalGlsfirst{#1}}}
+%\let\originalGlsplfirst\Glsplfirst
+%\renewcommand{\Glsplfirst}[1]{\emph{\originalGlsplfirst{#1}}}
+
+\input{thesisSoureCodeStyles}
+
+\input{thesisGlossary}
+
+\input{DocumentStructure} % der eigentliche Inhalt und die Struktur der Arbeit 

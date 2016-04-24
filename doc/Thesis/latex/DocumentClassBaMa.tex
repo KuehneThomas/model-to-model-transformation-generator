@@ -1,0 +1,15 @@
+\documentclass[a4paper, % DIN A4 Format
+	12pt, %Schriftgröße
+	twoside, %zweiseitiges Layout (linke und rechte Seiten)
+	openright, %Kapitel fangen immer auf rechter Seite an
+	cleardoublepage=empty, %evtl. eingefügte Seiten sind leer (ohne Seitenzahl), alternativ: cleardoublepage=plain (mit Seitenzahl)
+	numbers=noenddot, %hinter Kapitel- und Abschnittsnummern grundsätzlich kein Punkt am Ende
+	appendixprefix, %im Anhang bei Kapiteln eine Prefixzeile verwenden, z.B. "Anhang A"
+	BCOR1.5cm, %Binderand
+	bibliography=totoc %Literaturverzeichnis ins Inhaltsverzeichnis aufnehmen
+	%idxtotoc %Indexverzeichnis ins Inhaltsverzeichnis aufnehmen
+	]{scrbook} % Dokumentklasse aus KOMA-Paket, alternativ: scrartcl oder scrreprt, scrbook
+
+\renewcommand{\bf}[1]{\textbf{#1}}
+%\renewcommand{\sl}[1]{\textsl{#1}}
+%\renewcommand{\sc}[1]{\textsc{#1}}

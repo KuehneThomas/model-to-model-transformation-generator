@@ -1,0 +1,22 @@
+%Formatierung
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\pagestyle{plain} %'headings' für Seitenzahl oben, Fußzeile leer, 'plain' oder 'empty' auch möglich
+%\addtolength{\headwidth}{\marginparsep}
+%\addtolength{\headwidth}{\marginparwidth}
+%\addtolength{\headwidth}{3cm}
+\renewcommand{\chaptermark}[1]{\markboth{\sc\thechapter. #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\sl\thesection~#1}}
+\lhead[\fancyplain{}{\leftmark}]{}
+\rhead[]{\fancyplain{}{\rightmark}}
+\lfoot[\fancyplain{\bf\thepage}{\bf\thepage}]{}
+\rfoot[]{\fancyplain{\bf\thepage}{\bf\thepage}}
+\cfoot[]{}
+
+\fancypagestyle{plain}{% Neudefinition der plain-Seiten
+\fancyhf{}
+\fancyfoot[LE,RO]{\textbf{\thepage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+}
